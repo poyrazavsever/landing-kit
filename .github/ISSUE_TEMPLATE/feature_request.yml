@@ -1,0 +1,19 @@
+name: Özellik isteği / Feature request
+description: Yeni bir şey önerin. / Suggest something new.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Hangi sorunu çözüyor? / What problem does it solve?
+      description: Esnaf ya da freelancer olarak hangi durumda ihtiyaç duydunuz? / In which real situation did you (business owner or freelancer) need it?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Önerilen çözüm / Proposed solution
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatifler / Alternatives considered

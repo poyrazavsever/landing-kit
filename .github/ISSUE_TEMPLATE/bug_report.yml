@@ -1,0 +1,31 @@
+name: Hata bildirimi / Bug report
+description: Bir şey beklendiği gibi çalışmıyor. / Something does not work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Ne oldu? / What happened?
+      description: Ne yaptınız, ne bekliyordunuz, ne oldu? / What did you do, what did you expect, what happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Adımlar / Steps to reproduce
+      placeholder: |
+        1. npm run site:create -- ...
+        2. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Sürüm / Version
+      description: landing-kit sürümü ya da commit, Node.js sürümü, Docker mı düz node mu? / landing-kit version or commit, Node.js version, Docker or plain node?
+  - type: textarea
+    id: logs
+    attributes:
+      label: Loglar / Logs
+      description: Şifre, e-posta, telefon gibi kişisel verileri silin. / Remove passwords, emails, phone numbers and other personal data.
+      render: shell

@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - name: Snippet build is up to date
+        shell: bash
+        run: npm run build && git diff --exit-code public/landing-kit.min.js
+      - run: npm test
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --build-arg WITH_PDF=false -t landing-kit:ci .
+      - name: Container starts and is healthy
+        run: |
+          docker run -d --name lk -p 3000:3000 \
+            -e SESSION_SECRET=ci-secret-that-is-at-least-32-characters-long \
+            -e PUBLIC_URL=http://localhost:3000 landing-kit:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/healthz; then exit 0; fi
+            sleep 1
+          done
+          docker logs lk
+          exit 1
