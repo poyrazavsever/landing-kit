@@ -24,7 +24,87 @@ const weekdays = (open, close, sunday = null) =>
       : { open, close, closed: false },
   );
 
+// Prices are examples for fictional businesses, not real menus.
 const DEMOS = [
+  {
+    site: {
+      slug: 'en-iyi-etler',
+      name: 'En İyi Etler',
+      contact_email: 'rezervasyon@example.com',
+      phone: '0555 010 07 07',
+      whatsapp: '0555 010 07 07',
+      address: 'Örnek Mahallesi, Ateş Sokak No: 7, İstanbul (örnek adres)',
+      opening_hours: [
+        { open: '12:00', close: '23:00', closed: true },
+        ...Array.from({ length: 6 }, () => ({ open: '12:00', close: '23:00', closed: false })),
+      ],
+      collections: ['menu', 'campaigns'],
+      color_primary: '#B3261E',
+      color_secondary: '#C8A24A',
+      font_family: 'Playfair Display',
+      logo_path: '/examples/en-iyi-etler/brand/logo-mark.svg',
+    },
+    owner: 'eniyietler@example.com',
+    items: {
+      menu: [
+        [
+          'Dana Antrikot (300 g)',
+          'Dinlendirilmiş, odun kömüründe; közlenmiş sebze ve tereyağlı patates ile.',
+          '890',
+          '/examples/en-iyi-etler/brand/images/hero.webp',
+        ],
+        [
+          'Karışık Izgara (2 kişilik)',
+          'Kuzu pirzola, dana bonfile, tavuk şiş, köfte; bulgur pilavı ile.',
+          '1650',
+          '/examples/en-iyi-etler/brand/images/ad.webp',
+        ],
+        [
+          'Adana Kebap',
+          'Zırhla çekilmiş kuzu eti, lavaş, közlenmiş domates ve biber.',
+          '420',
+          '/examples/en-iyi-etler/brand/images/adana.webp',
+        ],
+        ['Kuzu Pirzola', 'Dört parça, kekik ve deniz tuzu ile.', '780', ''],
+        ['Izgara Köfte', 'Dana ve kuzu karışımı, piyaz ile.', '380', ''],
+        ['Tavuk Şiş', 'Yoğurtlu marinasyon, közlenmiş biber ile.', '340', ''],
+        ['Mercimek Çorbası', 'Günlük, tereyağlı pul biber ile.', '120', ''],
+        ['Çoban Salata', 'Domates, salatalık, biber, soğan, nar ekşisi.', '150', ''],
+        [
+          'Künefe',
+          'Hatay peyniri ve Antep fıstığı ile, sıcak servis.',
+          '220',
+          '/examples/en-iyi-etler/brand/images/dessert.webp',
+        ],
+        ['Ayran', 'Yayık ayranı.', '60', ''],
+      ],
+      campaigns: [
+        [
+          'Hafta içi öğle menüsü',
+          'Salı–Cuma 12:00–15:00: çorba + ızgara köfte + ayran 449 ₺ (örnek kampanya).',
+          '',
+        ],
+      ],
+    },
+    messages: [
+      [
+        'Selin',
+        '0555 111 22 33',
+        'Cumartesi 20:00 için 6 kişilik masa ayırtmak istiyoruz. Pencere kenarı olursa çok iyi olur.',
+      ],
+      [
+        'Kerem',
+        '0555 444 55 66',
+        'Pazar öğlen 2 kişi gelebilir miyiz? Karışık ızgarayı da önceden söylemek istiyoruz.',
+      ],
+      [
+        'Ayşe',
+        '',
+        'Doğum günü için 12 kişilik grup rezervasyonu yapıyor musunuz?',
+        'ayse@example.com',
+      ],
+    ],
+  },
   {
     site: {
       slug: 'cinaralti-lokanta',
@@ -138,7 +218,7 @@ db.transaction(() => {
           title,
           description,
           price_cents: price ? Number(price) * 100 : null,
-          image: image ? `/examples/assets/${image}.svg` : null,
+          image: !image ? null : image.startsWith('/') ? image : `/examples/assets/${image}.svg`,
         });
       }
     }
@@ -161,7 +241,7 @@ if (!created.length) {
   for (const { site, email, password } of created) {
     console.log(`  ${site.name}`);
     console.log(
-      `    Sayfa : ${config.publicUrl}/examples/${{ 'cinaralti-lokanta': 'restoran', 'berber-ahmet': 'berber', 'yildiz-kuruyemis': 'dukkan' }[site.slug]}/`,
+      `    Sayfa : ${config.publicUrl}/examples/${{ 'en-iyi-etler': 'en-iyi-etler', 'cinaralti-lokanta': 'restoran', 'berber-ahmet': 'berber', 'yildiz-kuruyemis': 'dukkan' }[site.slug]}/`,
     );
     console.log(`    Panel : ${config.publicUrl}/admin/${site.slug}`);
     console.log(`    Giriş : ${email} / ${password}\n`);
