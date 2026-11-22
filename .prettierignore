@@ -1,0 +1,5 @@
+node_modules
+data
+uploads
+docs/samples
+package-lock.json

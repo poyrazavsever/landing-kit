@@ -1,0 +1,59 @@
+{
+  "name": "landing-kit",
+  "version": "0.1.0",
+  "description": "Turn static landing pages into dynamic sites that small business owners update from their phone. Express + SQLite.",
+  "license": "MIT",
+  "author": "Poyraz Avsever",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poyrazavsever/landing-kit.git"
+  },
+  "type": "commonjs",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test --test-concurrency=1 test/",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "site:create": "node scripts/site-create.js",
+    "site:update": "node scripts/site-update.js",
+    "admin:create": "node scripts/admin-create.js",
+    "user:reset": "node scripts/user-reset.js",
+    "backup": "node scripts/backup.js",
+    "guide:pdf": "node scripts/guide-pdf.js",
+    "seed:demo": "node examples/seed.js"
+  },
+  "keywords": [
+    "landing-page",
+    "cms",
+    "express",
+    "sqlite",
+    "small-business"
+  ],
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.2.0",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.5",
+    "express-session": "^1.19.0",
+    "helmet": "^8.3.0",
+    "marked": "^18.2.1",
+    "multer": "^2.5.0",
+    "nodemailer": "^10.6.1",
+    "playwright": "^1.65.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.10.1",
+    "supertest": "^7.3.2"
+  }
+}
