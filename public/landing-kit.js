@@ -112,7 +112,9 @@
       var value = item[key];
       if (key === 'price' && value !== null && value !== undefined) value = money.format(value);
       if (value === null || value === undefined || value === '') {
+        // hidden + inline style: page CSS like `img { display: block }` must not reveal it
         el.hidden = true;
+        el.style.setProperty('display', 'none', 'important');
         return;
       }
       if (el.tagName === 'IMG') {
