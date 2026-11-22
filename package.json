@@ -27,7 +27,11 @@
     "backup": "node scripts/backup.js",
     "guide:pdf": "node scripts/guide-pdf.js",
     "seed:demo": "node examples/seed.js",
-    "build": "node scripts/build-snippet.js"
+    "build": "npm run build:snippet && npm run build:admin",
+    "build:snippet": "node scripts/build-snippet.js",
+    "build:admin": "vite build --config admin/vite.config.mjs",
+    "dev:admin": "vite --config admin/vite.config.mjs",
+    "test:e2e": "node --test --test-concurrency=1 \"test/e2e/*.e2e.js\""
   },
   "keywords": [
     "landing-page",
@@ -37,6 +41,9 @@
     "small-business"
   ],
   "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.11.1",
     "express": "^5.3.0",
@@ -50,12 +57,33 @@
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@eslint/js": "^10.0.1",
+    "@radix-ui/react-alert-dialog": "^1.2.1",
+    "@radix-ui/react-dialog": "^1.3.1",
+    "@radix-ui/react-label": "^2.1.17",
+    "@radix-ui/react-separator": "^1.2.0",
+    "@radix-ui/react-slot": "^1.5.0",
+    "@radix-ui/react-switch": "^1.4.1",
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-react": "^6.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "eslint": "^10.15.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.14.0",
     "jsdom": "^29.1.1",
+    "lucide-react": "^1.77.0",
     "prettier": "^3.10.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sonner": "^2.0.8",
     "supertest": "^7.3.2",
-    "terser": "^5.51.4"
+    "tailwind-merge": "^3.7.1",
+    "tailwindcss": "^4.3.5",
+    "terser": "^5.51.4",
+    "vite": "^8.3.8"
   }
 }

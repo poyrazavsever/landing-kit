@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('node:fs');
+const path = require('node:path');
 const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const request = require('supertest');
@@ -294,8 +296,20 @@ test('logout ends the session', async () => {
   assert.equal(res.status, 401);
 });
 
-test('admin panel page is served for /admin/<slug>', async () => {
-  const res = await request(ctx.app).get('/admin/site-a');
-  assert.equal(res.status, 200);
-  assert.match(res.text, /admin\.js/);
+test('admin panel (React build) is served for /admin and /admin/<slug>', async (t) => {
+  if (!fs.existsSync(path.join(__dirname, '..', 'public', 'admin', 'index.html'))) {
+    return t.skip('admin panel not built (npm run build:admin)');
+  }
+  for (const url of ['/admin/', '/admin/site-a']) {
+    const res = await request(ctx.app).get(url);
+    assert.equal(res.status, 200, url);
+    assert.match(res.text, /<div id="root"><\/div>/);
+  }
+  const page = await request(ctx.app).get('/admin/site-a');
+  const asset = page.text.match(/src="(\/admin\/assets\/[^"]+\.js)"/)[1];
+  const js = await request(ctx.app).get(asset);
+  assert.equal(js.status, 200);
+  assert.match(js.headers['content-type'], /javascript/);
+  const logo = await request(ctx.app).get('/admin/landing-kit-mark.svg');
+  assert.equal(logo.status, 200);
 });

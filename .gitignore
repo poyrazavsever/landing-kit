@@ -10,3 +10,4 @@ coverage/
 Thumbs.db
 .claude/launch.json
 .claude/settings.local.json
+public/admin/

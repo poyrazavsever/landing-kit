@@ -75,11 +75,25 @@ function createApp({ repos, config, notifier, logger = console }) {
     adminRoutes({ repos, config }),
   );
 
-  // Admin panel (static SPA). /admin/<slug> serves the same page branded for that site.
-  app.use('/admin', express.static(path.join(PUBLIC_DIR, 'admin'), { index: 'index.html' }));
-  app.get('/admin/:slug', (_req, res) =>
-    res.sendFile(path.join(PUBLIC_DIR, 'admin', 'index.html')),
+  // Admin panel: React build from admin/ (npm run build). /admin/<slug> serves the same
+  // page, branded for that site at runtime.
+  const adminDir = path.join(PUBLIC_DIR, 'admin');
+  const adminIndex = path.join(adminDir, 'index.html');
+  app.use(
+    '/admin/assets',
+    express.static(path.join(adminDir, 'assets'), { maxAge: '1y', immutable: true }),
   );
+  app.use('/admin', express.static(adminDir, { index: false }));
+  app.get(['/admin', '/admin/', '/admin/:slug'], (_req, res) => {
+    if (!fs.existsSync(adminIndex)) {
+      return res
+        .status(503)
+        .type('text/plain; charset=utf-8')
+        .send('Yönetim paneli henüz derlenmemiş. Sunucuda "npm run build" çalıştırın.');
+    }
+    res.set('Cache-Control', 'no-cache');
+    return res.sendFile(adminIndex);
+  });
 
   // The dependency-free client snippet.
   // Serves the minified build (npm run build) and falls back to the readable source.
