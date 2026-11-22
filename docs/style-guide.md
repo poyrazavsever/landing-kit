@@ -15,11 +15,11 @@ _English summary at the end._
 
 Dosyalar `brand/` klasöründe:
 
-| Dosya | Kullanım |
-|---|---|
-| `brand/landing-kit-mark.svg` | Kare işaret. Favicon, varsayılan panel logosu, avatar. |
-| `brand/landing-kit-wordmark.svg` | İşaret + yazı, açık zemin. README başlığı, sunumlar. |
-| `brand/landing-kit-wordmark-dark.svg` | İşaret + yazı, koyu zemin. |
+| Dosya                                 | Kullanım                                               |
+| ------------------------------------- | ------------------------------------------------------ |
+| `brand/landing-kit-mark.svg`          | Kare işaret. Favicon, varsayılan panel logosu, avatar. |
+| `brand/landing-kit-wordmark.svg`      | İşaret + yazı, açık zemin. README başlığı, sunumlar.   |
+| `brand/landing-kit-wordmark-dark.svg` | İşaret + yazı, koyu zemin.                             |
 
 **Fikir:** Mavi kare içinde beyaz bir sayfa (statik landing sayfası) ve köşesinde sarı bir "canlı" noktası: sayfa artık yaşıyor, güncellenebiliyor.
 
@@ -30,20 +30,20 @@ Dosyalar `brand/` klasöründe:
 
 ## 3. Renk token'ları
 
-| Token | Değer | Kullanım |
-|---|---|---|
-| `--brand` | `#1F4FFF` | Ana renk: üst bar, birincil düğme. Beyaz yazı ile kontrast 5,8:1 (AA). |
-| `--brand-2` | `#FFB020` | Vurgu: "yeni" rozeti, odak halkası, mesaj kutusu kenarı. Üstüne koyu yazı (`#1A1200`). |
-| `--brand-ink` | `#1F4FFF` | Beyaz zemin üstündeki marka renkli yazı/link (en az 4,5:1 olacak şekilde hesaplanır). |
-| `--on-brand` | `#FFFFFF` | Ana renk zemin üstündeki yazı. |
-| `--brand-soft` | `#EEF2FF` | Rozet ve küçük resim zemini. |
-| `--ink` | `#0E1525` | Metin. |
-| `--muted` | `#4B5568` | İkincil metin, ipuçları (beyazda 7,5:1). |
-| `--line` | `#DDE2EE` | Kenarlıklar. |
-| `--paper` | `#F6F7FB` | Sayfa zemini. |
-| `--card` | `#FFFFFF` | Kart zemini. |
-| `--success` | `#12805C` | Başarı. Beyazda 4,9:1. |
-| `--danger` | `#C62828` | Hata, silme. Beyazda 5,6:1. |
+| Token          | Değer     | Kullanım                                                                               |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `--brand`      | `#1F4FFF` | Ana renk: üst bar, birincil düğme. Beyaz yazı ile kontrast 5,8:1 (AA).                 |
+| `--brand-2`    | `#FFB020` | Vurgu: "yeni" rozeti, odak halkası, mesaj kutusu kenarı. Üstüne koyu yazı (`#1A1200`). |
+| `--brand-ink`  | `#1F4FFF` | Beyaz zemin üstündeki marka renkli yazı/link (en az 4,5:1 olacak şekilde hesaplanır).  |
+| `--on-brand`   | `#FFFFFF` | Ana renk zemin üstündeki yazı.                                                         |
+| `--brand-soft` | `#EEF2FF` | Rozet ve küçük resim zemini.                                                           |
+| `--ink`        | `#0E1525` | Metin.                                                                                 |
+| `--muted`      | `#4B5568` | İkincil metin, ipuçları (beyazda 7,5:1).                                               |
+| `--line`       | `#DDE2EE` | Kenarlıklar.                                                                           |
+| `--paper`      | `#F6F7FB` | Sayfa zemini.                                                                          |
+| `--card`       | `#FFFFFF` | Kart zemini.                                                                           |
+| `--success`    | `#12805C` | Başarı. Beyazda 4,9:1.                                                                 |
+| `--danger`     | `#C62828` | Hata, silme. Beyazda 5,6:1.                                                            |
 
 Kaynak: `public/admin/admin.css` içindeki `:root`.
 
@@ -57,20 +57,20 @@ Kaynak: `public/admin/admin.css` içindeki `:root`.
 
 ## 5. Panel bileşenleri
 
-| Bileşen | Sınıf | Kural |
-|---|---|---|
-| Üst bar | `.topbar` | Müşteri logosu + adı, sağda "Çıkış". Ana renk zemin. |
-| Kutu (ana sayfa) | `.tile` | Sol kenarda 6 px marka çizgisi; başlık + tek satır açıklama. Mesajlar kutusu `.accent` (vurgu rengi). |
-| Kart | `.card` | 14 px köşe, ince kenarlık, hafif gölge. |
-| Birincil düğme | `.btn` | Ekranda tek birincil eylem (Kaydet, Ekle). Min. yükseklik 48 px. |
-| İkincil düğme | `.btn-secondary` | Kenarlıklı. Gizle/Göster, sıralama okları. |
-| Tehlikeli düğme | `.btn-danger` | Silme. Her zaman onay sorar ve "geri alınamaz" der. |
-| Alt sabit eylem | `.sticky-actions` | Form ekranlarında Kaydet/Ekle düğmesi başparmak erişiminde, ekranın altında sabit. |
-| Rozet | `.badge`, `.badge.off`, `.badge.new` | "Sitede", "Gizli", "Yeni". |
-| Bildirim | `.toast` | Ekranın altında 3 sn; `role="status"` ile ekran okuyucuya okunur. Hata hâlinde kırmızı. |
-| Form alanı | `.field` | Her alanın görünür etiketi var; hata mesajı alanın altında, `aria-invalid` + `aria-describedby`. |
-| Fotoğraf seçici | `.photo` | "Fotoğraf çek" (kamera) ve "Galeriden seç" ayrı düğmeler; büyük fotoğraflar yüklemeden önce 1600 px'e küçültülür. |
-| Çalışma saatleri | `.hours-row` | Gün + "Kapalı" anahtarı + iki saat seçici. |
+| Bileşen          | Sınıf                                | Kural                                                                                                             |
+| ---------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Üst bar          | `.topbar`                            | Müşteri logosu + adı, sağda "Çıkış". Ana renk zemin.                                                              |
+| Kutu (ana sayfa) | `.tile`                              | Sol kenarda 6 px marka çizgisi; başlık + tek satır açıklama. Mesajlar kutusu `.accent` (vurgu rengi).             |
+| Kart             | `.card`                              | 14 px köşe, ince kenarlık, hafif gölge.                                                                           |
+| Birincil düğme   | `.btn`                               | Ekranda tek birincil eylem (Kaydet, Ekle). Min. yükseklik 48 px.                                                  |
+| İkincil düğme    | `.btn-secondary`                     | Kenarlıklı. Gizle/Göster, sıralama okları.                                                                        |
+| Tehlikeli düğme  | `.btn-danger`                        | Silme. Her zaman onay sorar ve "geri alınamaz" der.                                                               |
+| Alt sabit eylem  | `.sticky-actions`                    | Form ekranlarında Kaydet/Ekle düğmesi başparmak erişiminde, ekranın altında sabit.                                |
+| Rozet            | `.badge`, `.badge.off`, `.badge.new` | "Sitede", "Gizli", "Yeni".                                                                                        |
+| Bildirim         | `.toast`                             | Ekranın altında 3 sn; `role="status"` ile ekran okuyucuya okunur. Hata hâlinde kırmızı.                           |
+| Form alanı       | `.field`                             | Her alanın görünür etiketi var; hata mesajı alanın altında, `aria-invalid` + `aria-describedby`.                  |
+| Fotoğraf seçici  | `.photo`                             | "Fotoğraf çek" (kamera) ve "Galeriden seç" ayrı düğmeler; büyük fotoğraflar yüklemeden önce 1600 px'e küçültülür. |
+| Çalışma saatleri | `.hours-row`                         | Gün + "Kapalı" anahtarı + iki saat seçici.                                                                        |
 
 **Erişilebilirlik kuralları:** Dokunma alanı en az 44–48 px. Odak halkası her zaman görünür (`--brand-2`, 3 px). Renk tek başına anlam taşımaz (gizli kayıtta hem soluk görünüm hem "Gizli" yazısı). `prefers-reduced-motion` desteklenir. Kullanıcı içeriği her zaman `textContent` ile basılır.
 
@@ -90,16 +90,17 @@ Panelin kullanıcısı esnaf: teknik değil, meşgul, telefonda, çoğu zaman te
 
 Her müşterinin paneli kendi markasıyla açılır. Tema `sites` tablosundaki dört alandan gelir:
 
-| Alan | Etkisi | Boşsa |
-|---|---|---|
-| `logo_path` | Üst bar, giriş ekranı, PDF kapağı | landing-kit işareti |
-| `color_primary` | `--brand`, `--brand-ink`, `--on-brand`, `--brand-soft`, tarayıcı tema rengi | `#1F4FFF` |
-| `color_secondary` | `--brand-2` (vurgu, odak halkası) | `#FFB020` |
-| `font_family` | `--font` | Inter / sistem fontu |
+| Alan              | Etkisi                                                                      | Boşsa                |
+| ----------------- | --------------------------------------------------------------------------- | -------------------- |
+| `logo_path`       | Üst bar, giriş ekranı, PDF kapağı                                           | landing-kit işareti  |
+| `color_primary`   | `--brand`, `--brand-ink`, `--on-brand`, `--brand-soft`, tarayıcı tema rengi | `#1F4FFF`            |
+| `color_secondary` | `--brand-2` (vurgu, odak halkası)                                           | `#FFB020`            |
+| `font_family`     | `--font`                                                                    | Inter / sistem fontu |
 
 Nasıl ayarlanır: `npm run site:create -- ... --primary "#7C2D12" --secondary "#F59E0B" --font "Georgia" --logo ./logo.png` ya da sonradan `npm run site:update`. Süper yönetici (freelancer) paneldeki **İşletme bilgileri → Tema ve teknik ayarlar** bölümünden de değiştirebilir. İşletme sahibi temayı değiştiremez.
 
 **Kontrast güvencesi:** Panel, müşterinin ana rengini çalışma anında ölçer:
+
 - Ana renk zemindeki yazı rengi (`--on-brand`) beyaz ya da koyu lacivertten hangisi daha okunaklıysa o seçilir.
 - Beyaz zemindeki marka renkli yazı/link (`--brand-ink`) 4,5:1 kontrasta ulaşana kadar koyulaştırılır. Yani müşteri açık sarı bir marka rengi seçse bile linkler okunur kalır.
 
