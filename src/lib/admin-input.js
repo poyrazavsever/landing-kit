@@ -20,7 +20,8 @@ function checkImage(value, errors) {
     errors.image = 'Görsel adresi geçersiz.';
     return undefined;
   }
-  const ok = (IMAGE_PATH_RE.test(value) && !value.includes('..')) || /^https:\/\/[^\s"'<>]+$/.test(value);
+  const ok =
+    (IMAGE_PATH_RE.test(value) && !value.includes('..')) || /^https:\/\/[^\s"'<>]+$/.test(value);
   if (!ok) errors.image = 'Görsel adresi geçersiz.';
   return value;
 }
@@ -57,7 +58,8 @@ function parseItemInput(body = {}, { partial = false } = {}) {
     const image = checkImage(body.image, errors);
     if (image !== undefined) out.image = image;
   }
-  if (has('active')) out.active = body.active === true || body.active === 'true' || body.active === 1;
+  if (has('active'))
+    out.active = body.active === true || body.active === 'true' || body.active === 1;
 
   if (Object.keys(errors).length) throw new ValidationError(errors);
   return out;
@@ -80,7 +82,15 @@ function parseHours(value, errors) {
 }
 
 /** Fields the business owner may edit. */
-const OWNER_FIELDS = ['name', 'phone', 'whatsapp', 'contact_email', 'address', 'opening_hours', 'hours_note'];
+const OWNER_FIELDS = [
+  'name',
+  'phone',
+  'whatsapp',
+  'contact_email',
+  'address',
+  'opening_hours',
+  'hours_note',
+];
 /** Extra fields only the freelancer (superadmin) may edit. */
 const SUPERADMIN_FIELDS = [
   'domains',
@@ -96,7 +106,9 @@ function parseSiteInput(body = {}, { superadmin = false } = {}) {
   const errors = {};
   const out = {};
   const allowed = superadmin ? [...OWNER_FIELDS, ...SUPERADMIN_FIELDS] : OWNER_FIELDS;
-  const forbidden = Object.keys(body).filter((key) => SUPERADMIN_FIELDS.includes(key) && !allowed.includes(key));
+  const forbidden = Object.keys(body).filter(
+    (key) => SUPERADMIN_FIELDS.includes(key) && !allowed.includes(key),
+  );
   if (forbidden.length) {
     errors._ = 'Bu alanları sadece site yöneticiniz değiştirebilir.';
   }
@@ -112,11 +124,19 @@ function parseSiteInput(body = {}, { superadmin = false } = {}) {
       }
       case 'domains':
       case 'collections': {
-        const list = Array.isArray(value) ? value.map((v) => (typeof v === 'string' ? v.trim() : v)) : null;
+        const list = Array.isArray(value)
+          ? value.map((v) => (typeof v === 'string' ? v.trim() : v))
+          : null;
         if (!list || list.length > 50) errors[key] = 'Liste geçersiz.';
-        else if (key === 'collections' && !list.every((c) => isCollection(typeof c === 'string' ? c : c?.key))) {
+        else if (
+          key === 'collections' &&
+          !list.every((c) => isCollection(typeof c === 'string' ? c : c?.key))
+        ) {
           errors.collections = 'Bölüm adları küçük harf, rakam, - veya _ içerebilir.';
-        } else if (key === 'domains' && !list.every((d) => typeof d === 'string' && /^[a-z0-9.:/-]{3,200}$/i.test(d))) {
+        } else if (
+          key === 'domains' &&
+          !list.every((d) => typeof d === 'string' && /^[a-z0-9.:/-]{3,200}$/i.test(d))
+        ) {
           errors.domains = 'Alan adı listesi geçersiz.';
         } else out[key] = list.filter(Boolean);
         break;
@@ -132,7 +152,11 @@ function parseSiteInput(body = {}, { superadmin = false } = {}) {
           errors[key] = 'Telefon numarası geçersiz (ör. 0555 123 45 67).';
         } else if (key === 'contact_email' && text && !isEmail(text)) {
           errors.contact_email = 'E-posta adresi geçersiz.';
-        } else if ((key === 'color_primary' || key === 'color_secondary') && text && !isColor(text)) {
+        } else if (
+          (key === 'color_primary' || key === 'color_secondary') &&
+          text &&
+          !isColor(text)
+        ) {
           errors[key] = 'Renk #RRGGBB biçiminde olmalı.';
         } else if (key === 'font_family' && text && !isFont(text)) {
           errors.font_family = 'Yazı tipi adı geçersiz.';

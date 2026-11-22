@@ -10,7 +10,8 @@ const { parseContact } = require('../lib/contact');
 
 /** True for classic <form> posts (no JavaScript), so we can redirect instead of returning JSON. */
 const wantsRedirect = (req) =>
-  req.is('application/x-www-form-urlencoded') && !String(req.get('accept')).includes('application/json');
+  req.is('application/x-www-form-urlencoded') &&
+  !String(req.get('accept')).includes('application/json');
 
 function publicRoutes({ repos, config, notifier, logger }) {
   /** Redirect target for no-JS posts; only origins in the site's allow-list (no open redirect). */
@@ -59,7 +60,8 @@ function publicRoutes({ repos, config, notifier, logger }) {
         : res.status(201).json({ ok: true });
     }
     if (result.errors) {
-      if (wantsRedirect(req) && backTo(req, 'error')) return res.redirect(303, backTo(req, 'error'));
+      if (wantsRedirect(req) && backTo(req, 'error'))
+        return res.redirect(303, backTo(req, 'error'));
       return res.status(400).json({
         error: 'validation',
         message: 'Lütfen formdaki hataları düzeltin.',

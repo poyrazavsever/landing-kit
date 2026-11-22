@@ -14,7 +14,9 @@
   });
 
   var state = {
-    slug: decodeURIComponent((location.pathname.match(/^\/admin\/([a-z0-9-]+)\/?$/) || [])[1] || ''),
+    slug: decodeURIComponent(
+      (location.pathname.match(/^\/admin\/([a-z0-9-]+)\/?$/) || [])[1] || '',
+    ),
     user: null,
     sites: [],
     site: null,
@@ -74,7 +76,11 @@
   }
 
   function api(method, url, body) {
-    var opts = { method: method, headers: { Accept: 'application/json' }, credentials: 'same-origin' };
+    var opts = {
+      method: method,
+      headers: { Accept: 'application/json' },
+      credentials: 'same-origin',
+    };
     if (state.csrf) opts.headers['X-CSRF-Token'] = state.csrf;
     if (body instanceof FormData) opts.body = body;
     else if (body !== undefined) {
@@ -210,7 +216,12 @@
     var accent = hexToRgb(theme.secondary);
     if (accent) root.setProperty('--brand-2', toHex(accent));
     if (theme.font) {
-      root.setProperty('--font', '"' + String(theme.font).replace(/["\\]/g, '') + '", Inter, "Segoe UI", system-ui, sans-serif');
+      root.setProperty(
+        '--font',
+        '"' +
+          String(theme.font).replace(/["\\]/g, '') +
+          '", Inter, "Segoe UI", system-ui, sans-serif',
+      );
     }
     var logo = theme.logo || DEFAULT_LOGO;
     document.getElementById('brand-logo').src = logo;
@@ -230,12 +241,23 @@
       h(
         'label.field',
         h('span', 'E-posta adresiniz'),
-        h('input', { type: 'email', name: 'email', autocomplete: 'username', required: true, inputMode: 'email' }),
+        h('input', {
+          type: 'email',
+          name: 'email',
+          autocomplete: 'username',
+          required: true,
+          inputMode: 'email',
+        }),
       ),
       h(
         'label.field',
         h('span', 'Şifreniz'),
-        h('input', { type: 'password', name: 'password', autocomplete: 'current-password', required: true }),
+        h('input', {
+          type: 'password',
+          name: 'password',
+          autocomplete: 'current-password',
+          required: true,
+        }),
       ),
       h('button.btn.btn-block', { type: 'submit' }, 'Giriş yap'),
     );
@@ -267,7 +289,10 @@
         h('h1', (site && site.name) || 'Yönetim Paneli'),
         h('p.lead', message || 'Sitenizi güncellemek için giriş yapın.'),
         form,
-        h('p.login-foot', 'Şifrenizi mi unuttunuz? Sitenizi kuran kişiye yazın, size yeni bir geçici şifre versin.'),
+        h(
+          'p.login-foot',
+          'Şifrenizi mi unuttunuz? Sitenizi kuran kişiye yazın, size yeni bir geçici şifre versin.',
+        ),
       ),
     );
     form.email.focus();
@@ -281,13 +306,27 @@
       h(
         'label.field',
         h('span', forced ? 'Size verilen geçici şifre' : 'Şu anki şifreniz'),
-        h('input', { type: 'password', name: 'current', autocomplete: 'current-password', required: true }),
+        h('input', {
+          type: 'password',
+          name: 'current',
+          autocomplete: 'current-password',
+          required: true,
+        }),
       ),
       h(
         'label.field',
         h('span', 'Yeni şifreniz'),
-        h('input', { type: 'password', name: 'next', autocomplete: 'new-password', required: true, minLength: 8 }),
-        h('small.hint', 'En az 8 karakter. Kolay hatırlayacağınız ama başkasının tahmin edemeyeceği bir şey seçin.'),
+        h('input', {
+          type: 'password',
+          name: 'next',
+          autocomplete: 'new-password',
+          required: true,
+          minLength: 8,
+        }),
+        h(
+          'small.hint',
+          'En az 8 karakter. Kolay hatırlayacağınız ama başkasının tahmin edemeyeceği bir şey seçin.',
+        ),
       ),
       h('button.btn.btn-block', { type: 'submit' }, 'Şifremi kaydet'),
     );
@@ -321,7 +360,12 @@
         ? h(
             'div.tiles',
             state.sites.map(function (s) {
-              return h('a.tile', { href: '/admin/' + s.slug }, h('strong', s.name), h('span', '/' + s.slug));
+              return h(
+                'a.tile',
+                { href: '/admin/' + s.slug },
+                h('strong', s.name),
+                h('span', '/' + s.slug),
+              );
             }),
           )
         : h('p.empty', 'Henüz site yok. Sunucuda "npm run site:create" komutuyla ekleyin.'),
@@ -335,18 +379,35 @@
         'a.tile',
         { href: '#/c/' + c.key },
         h('strong', c.label),
-        h('span', c.total ? c.active + ' görünür · ' + (c.total - c.active) + ' gizli' : 'Henüz kayıt yok'),
+        h(
+          'span',
+          c.total ? c.active + ' görünür · ' + (c.total - c.active) + ' gizli' : 'Henüz kayıt yok',
+        ),
       );
     });
     tiles.push(
       h(
         'a.tile.accent',
         { href: '#/mesajlar' },
-        h('strong', 'Mesajlar ', site.unreadMessages ? h('span.badge.new', site.unreadMessages + ' yeni') : null),
+        h(
+          'strong',
+          'Mesajlar ',
+          site.unreadMessages ? h('span.badge.new', site.unreadMessages + ' yeni') : null,
+        ),
         h('span', 'Siteden gelen iletişim formları'),
       ),
-      h('a.tile', { href: '#/bilgiler' }, h('strong', 'İşletme bilgileri'), h('span', 'Telefon, adres, çalışma saatleri')),
-      h('a.tile', { href: '#/sifre' }, h('strong', 'Şifremi değiştir'), h('span', 'Giriş şifrenizi yenileyin')),
+      h(
+        'a.tile',
+        { href: '#/bilgiler' },
+        h('strong', 'İşletme bilgileri'),
+        h('span', 'Telefon, adres, çalışma saatleri'),
+      ),
+      h(
+        'a.tile',
+        { href: '#/sifre' },
+        h('strong', 'Şifremi değiştir'),
+        h('span', 'Giriş şifrenizi yenileyin'),
+      ),
     );
     render(
       state.user.role === 'superadmin' ? h('a.back', { href: '/admin/' }, '← Bütün siteler') : null,
@@ -366,7 +427,11 @@
 
   function showCollection(key) {
     var col = collectionOf(key);
-    render(h('a.back', { href: '#/' }, '← Ana sayfa'), h('h1', col.label), h('p.loading', 'Yükleniyor…'));
+    render(
+      h('a.back', { href: '#/' }, '← Ana sayfa'),
+      h('h1', col.label),
+      h('p.loading', 'Yükleniyor…'),
+    );
     siteApi('GET', '/items?collection=' + encodeURIComponent(key))
       .then(function (data) {
         var items = data.items;
@@ -397,7 +462,11 @@
               onclick: function () {
                 siteApi('PATCH', '/items/' + item.id, { active: !item.active })
                   .then(function () {
-                    toast(item.active ? '"' + item.title + '" gizlendi.' : '"' + item.title + '" artık sitede.');
+                    toast(
+                      item.active
+                        ? '"' + item.title + '" gizlendi.'
+                        : '"' + item.title + '" artık sitede.',
+                    );
                     showCollection(key);
                   })
                   .catch(handleError);
@@ -456,7 +525,10 @@
         render(
           h('a.back', { href: '#/' }, '← Ana sayfa'),
           h('h1', col.label),
-          h('p.lead', items.length ? 'Sırayı oklarla değiştirebilirsiniz. Gizlenenler sitede görünmez.' : ''),
+          h(
+            'p.lead',
+            items.length ? 'Sırayı oklarla değiştirebilirsiniz. Gizlenenler sitede görünmez.' : '',
+          ),
           items.length ? list : h('p.empty', 'Burada henüz bir şey yok. İlk kaydı ekleyin.'),
           h('div.sticky-actions', h('a.btn', { href: '#/c/' + key + '/yeni' }, '+ Yeni ekle')),
         );
@@ -467,7 +539,8 @@
   /** Shrinks big phone photos before upload (keeps uploads fast on mobile data). */
   function shrinkImage(file) {
     return new Promise(function (resolve) {
-      if (!/^image\/(jpeg|png|webp)$/.test(file.type) || !window.createImageBitmap) return resolve(file);
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type) || !window.createImageBitmap)
+        return resolve(file);
       createImageBitmap(file)
         .then(function (bitmap) {
           var scale = Math.min(1, MAX_IMAGE_SIDE / Math.max(bitmap.width, bitmap.height));
@@ -491,7 +564,11 @@
   }
 
   function photoPicker(current, onChange) {
-    var preview = h('img.photo-preview', { alt: 'Seçilen fotoğraf', src: current || undefined, hidden: !current });
+    var preview = h('img.photo-preview', {
+      alt: 'Seçilen fotoğraf',
+      src: current || undefined,
+      hidden: !current,
+    });
     var status = h('p.hint', { 'aria-live': 'polite' });
     var removeBtn = h(
       'button.btn.btn-danger.btn-small',
@@ -550,7 +627,12 @@
       'div.field.photo',
       h('span.label', 'Fotoğraf'),
       preview,
-      h('div.photo-buttons', picker('Fotoğraf çek', true), picker('Galeriden seç', false), removeBtn),
+      h(
+        'div.photo-buttons',
+        picker('Fotoğraf çek', true),
+        picker('Galeriden seç', false),
+        removeBtn,
+      ),
       status,
     );
   }
@@ -582,13 +664,26 @@
             h(
               'label.field',
               h('span', 'Başlık'),
-              h('input', { type: 'text', name: 'title', value: item.title, required: true, maxLength: 120 }),
-              h('small.hint', key === 'campaigns' ? 'Örn: Hafta içi öğrenciye %10 indirim' : 'Örn: Adana Kebap'),
+              h('input', {
+                type: 'text',
+                name: 'title',
+                value: item.title,
+                required: true,
+                maxLength: 120,
+              }),
+              h(
+                'small.hint',
+                key === 'campaigns' ? 'Örn: Hafta içi öğrenciye %10 indirim' : 'Örn: Adana Kebap',
+              ),
             ),
             h(
               'label.field',
               h('span', 'Açıklama (isteğe bağlı)'),
-              h('textarea', { name: 'description', maxLength: 1000, rows: 3 }, item.description || ''),
+              h(
+                'textarea',
+                { name: 'description', maxLength: 1000, rows: 3 },
+                item.description || '',
+              ),
             ),
             h(
               'label.field',
@@ -599,7 +694,10 @@
                   type: 'text',
                   name: 'price',
                   inputMode: 'decimal',
-                  value: item.price === null || item.price === undefined ? '' : String(item.price).replace('.', ','),
+                  value:
+                    item.price === null || item.price === undefined
+                      ? ''
+                      : String(item.price).replace('.', ','),
                   placeholder: 'Örn: 150 veya 149,90',
                 }),
               ),
@@ -617,7 +715,14 @@
                 {
                   type: 'button',
                   onclick: function () {
-                    if (!confirm('"' + item.title + '" silinsin mi? Bu işlem geri alınamaz. Sadece saklamak istiyorsanız "Sitede göster" kutusunu kaldırın.')) return;
+                    if (
+                      !confirm(
+                        '"' +
+                          item.title +
+                          '" silinsin mi? Bu işlem geri alınamaz. Sadece saklamak istiyorsanız "Sitede göster" kutusunu kaldırın.',
+                      )
+                    )
+                      return;
                     siteApi('DELETE', '/items/' + item.id)
                       .then(function () {
                         toast('Silindi.');
@@ -665,7 +770,11 @@
   }
 
   function showMessages() {
-    render(h('a.back', { href: '#/' }, '← Ana sayfa'), h('h1', 'Mesajlar'), h('p.loading', 'Yükleniyor…'));
+    render(
+      h('a.back', { href: '#/' }, '← Ana sayfa'),
+      h('h1', 'Mesajlar'),
+      h('p.loading', 'Yükleniyor…'),
+    );
     siteApi('GET', '/messages')
       .then(function (data) {
         state.site.unreadMessages = data.unread;
@@ -676,21 +785,35 @@
             'article.card.msg' + (m.read ? '' : '.unread'),
             h(
               'div.msg-head',
-              h('strong', m.name, m.read ? null : h('span.badge.new', { style: 'margin-left:8px' }, 'Yeni')),
+              h(
+                'strong',
+                m.name,
+                m.read ? null : h('span.badge.new', { style: 'margin-left:8px' }, 'Yeni'),
+              ),
               h('time', { dateTime: m.created_at }, formatDate(m.created_at)),
             ),
             h('p.msg-body', m.message),
             h(
               'div.item-actions',
               m.phone ? h('a.btn.btn-small', { href: 'tel:' + digits }, 'Ara') : null,
-              m.phone ? h('a.btn.btn-secondary.btn-small', { href: 'https://wa.me/' + wa, target: '_blank', rel: 'noopener' }, 'WhatsApp') : null,
-              m.email ? h('a.btn.btn-secondary.btn-small', { href: 'mailto:' + m.email }, 'E-posta') : null,
+              m.phone
+                ? h(
+                    'a.btn.btn-secondary.btn-small',
+                    { href: 'https://wa.me/' + wa, target: '_blank', rel: 'noopener' },
+                    'WhatsApp',
+                  )
+                : null,
+              m.email
+                ? h('a.btn.btn-secondary.btn-small', { href: 'mailto:' + m.email }, 'E-posta')
+                : null,
               h(
                 'button.btn.btn-secondary.btn-small',
                 {
                   type: 'button',
                   onclick: function () {
-                    siteApi('PATCH', '/messages/' + m.id, { read: !m.read }).then(showMessages).catch(handleError);
+                    siteApi('PATCH', '/messages/' + m.id, { read: !m.read })
+                      .then(showMessages)
+                      .catch(handleError);
                   },
                 },
                 m.read ? 'Okunmadı yap' : 'Okundu',
@@ -701,7 +824,9 @@
                   type: 'button',
                   onclick: function () {
                     if (!confirm(m.name + ' kişisinin mesajı silinsin mi?')) return;
-                    siteApi('DELETE', '/messages/' + m.id).then(showMessages).catch(handleError);
+                    siteApi('DELETE', '/messages/' + m.id)
+                      .then(showMessages)
+                      .catch(handleError);
                   },
                 },
                 'Sil',
@@ -713,8 +838,13 @@
         render(
           h('a.back', { href: '#/' }, '← Ana sayfa'),
           h('h1', 'Mesajlar'),
-          h('p.lead', data.unread ? data.unread + ' okunmamış mesajınız var.' : 'Bütün mesajlar okundu.'),
-          list.length ? list : h('p.empty', 'Henüz mesaj yok. Sitenizdeki formdan gelen mesajlar burada görünür.'),
+          h(
+            'p.lead',
+            data.unread ? data.unread + ' okunmamış mesajınız var.' : 'Bütün mesajlar okundu.',
+          ),
+          list.length
+            ? list
+            : h('p.empty', 'Henüz mesaj yok. Sitenizdeki formdan gelen mesajlar burada görünür.'),
         );
       })
       .catch(handleError);
@@ -723,9 +853,13 @@
   function showSiteInfo() {
     var site = state.site;
     var isSuper = state.user.role === 'superadmin';
-    var hours = (site.opening_hours && site.opening_hours.length === 7 ? site.opening_hours : DAYS.map(function () {
-      return { open: '09:00', close: '19:00', closed: false };
-    })).map(function (d) {
+    var hours = (
+      site.opening_hours && site.opening_hours.length === 7
+        ? site.opening_hours
+        : DAYS.map(function () {
+            return { open: '09:00', close: '19:00', closed: false };
+          })
+    ).map(function (d) {
       return { open: d.open, close: d.close, closed: d.closed };
     });
 
@@ -734,20 +868,29 @@
       return h(
         'label.field',
         h('span', label),
-        h(opts.multiline ? 'textarea' : 'input', {
-          type: opts.multiline ? undefined : opts.type || 'text',
-          name: name,
-          value: opts.multiline ? undefined : value || '',
-          inputMode: opts.inputMode,
-          autocomplete: 'off',
-          rows: opts.multiline ? 3 : undefined,
-        }, opts.multiline ? value || '' : null),
+        h(
+          opts.multiline ? 'textarea' : 'input',
+          {
+            type: opts.multiline ? undefined : opts.type || 'text',
+            name: name,
+            value: opts.multiline ? undefined : value || '',
+            inputMode: opts.inputMode,
+            autocomplete: 'off',
+            rows: opts.multiline ? 3 : undefined,
+          },
+          opts.multiline ? value || '' : null,
+        ),
         opts.hint ? h('small.hint', opts.hint) : null,
       );
     }
 
     var hourRows = hours.map(function (d, i) {
-      var open = h('input', { type: 'time', value: d.open, 'aria-label': DAYS[i] + ' açılış', name: 'opening_hours' });
+      var open = h('input', {
+        type: 'time',
+        value: d.open,
+        'aria-label': DAYS[i] + ' açılış',
+        name: 'opening_hours',
+      });
       var close = h('input', { type: 'time', value: d.close, 'aria-label': DAYS[i] + ' kapanış' });
       var closed = h('input', { type: 'checkbox', checked: d.closed });
       var row = h(
@@ -777,17 +920,45 @@
           'div.card',
           h('h2', { style: 'margin-top:0' }, 'Tema ve teknik ayarlar'),
           h('p.hint', 'Bu bölümü sadece siz (yönetici) görürsünüz.'),
-          text('domains', 'İzinli alan adları (her satıra bir tane)', (site.domains || []).join('\n'), {
-            multiline: true,
-            hint: 'Örn: berberahmet.com veya http://localhost:5500',
+          text(
+            'domains',
+            'İzinli alan adları (her satıra bir tane)',
+            (site.domains || []).join('\n'),
+            {
+              multiline: true,
+              hint: 'Örn: berberahmet.com veya http://localhost:5500',
+            },
+          ),
+          text(
+            'collections',
+            'Bölümler (virgülle)',
+            site.collections
+              .map(function (c) {
+                return c.key;
+              })
+              .join(', '),
+            { hint: 'Örn: menu, campaigns, services, products, gallery' },
+          ),
+          h(
+            'label.field',
+            h('span', 'Ana renk'),
+            h('input', { type: 'color', name: 'color_primary', value: theme.primary || '#1f4fff' }),
+          ),
+          h(
+            'label.field',
+            h('span', 'İkinci renk'),
+            h('input', {
+              type: 'color',
+              name: 'color_secondary',
+              value: theme.secondary || '#ffb020',
+            }),
+          ),
+          text('font_family', 'Yazı tipi', theme.font || '', {
+            hint: 'Cihazda yüklü olan bir yazı tipi adı. Örn: Poppins',
           }),
-          text('collections', 'Bölümler (virgülle)', site.collections.map(function (c) {
-            return c.key;
-          }).join(', '), { hint: 'Örn: menu, campaigns, services, products, gallery' }),
-          h('label.field', h('span', 'Ana renk'), h('input', { type: 'color', name: 'color_primary', value: theme.primary || '#1f4fff' })),
-          h('label.field', h('span', 'İkinci renk'), h('input', { type: 'color', name: 'color_secondary', value: theme.secondary || '#ffb020' })),
-          text('font_family', 'Yazı tipi', theme.font || '', { hint: 'Cihazda yüklü olan bir yazı tipi adı. Örn: Poppins' }),
-          text('logo_path', 'Logo yolu', theme.logo || '', { hint: '/uploads/... (aşağıdan yükleyebilirsiniz)' }),
+          text('logo_path', 'Logo yolu', theme.logo || '', {
+            hint: '/uploads/... (aşağıdan yükleyebilirsiniz)',
+          }),
           photoPicker(theme.logo, function (path) {
             document.querySelector('[name="logo_path"]').value = path;
           }),
@@ -801,16 +972,29 @@
       h(
         'div.card',
         text('name', 'İşletme adı', site.name),
-        text('phone', 'Telefon', site.phone, { type: 'tel', inputMode: 'tel', hint: 'Örn: 0555 123 45 67' }),
+        text('phone', 'Telefon', site.phone, {
+          type: 'tel',
+          inputMode: 'tel',
+          hint: 'Örn: 0555 123 45 67',
+        }),
         text('whatsapp', 'WhatsApp numarası', site.whatsapp, { type: 'tel', inputMode: 'tel' }),
-        text('contact_email', 'Mesajların geleceği e-posta', site.contact_email, { type: 'email', inputMode: 'email' }),
+        text('contact_email', 'Mesajların geleceği e-posta', site.contact_email, {
+          type: 'email',
+          inputMode: 'email',
+        }),
         text('address', 'Adres', site.address, { multiline: true }),
       ),
       h(
         'div.card',
         h('h2', { style: 'margin-top:0' }, 'Çalışma saatleri'),
         h('div.hours', hourRows),
-        h('div', { style: 'margin-top:16px' }, text('hours_note', 'Not (isteğe bağlı)', site.hours_note, { hint: 'Örn: Bayramlarda kapalıyız.' })),
+        h(
+          'div',
+          { style: 'margin-top:16px' },
+          text('hours_note', 'Not (isteğe bağlı)', site.hours_note, {
+            hint: 'Örn: Bayramlarda kapalıyız.',
+          }),
+        ),
       ),
       superFields,
       h('div.sticky-actions', h('button.btn', { type: 'submit' }, 'Kaydet')),
@@ -903,7 +1087,12 @@
       })
       .catch(function (err) {
         if (err.status === 401) return showLogin();
-        if (err.status === 403 && state.user && state.user.role !== 'superadmin' && state.sites[0]) {
+        if (
+          err.status === 403 &&
+          state.user &&
+          state.user.role !== 'superadmin' &&
+          state.sites[0]
+        ) {
           location.replace('/admin/' + state.sites[0].slug);
           return;
         }

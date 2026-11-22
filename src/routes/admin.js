@@ -73,7 +73,9 @@ function adminRoutes({ repos, config }) {
     const password = req.body?.password;
     const user = email ? repos.users.findByEmail(email) : null;
     if (!verifyPassword(user, password)) {
-      return res.status(401).json({ error: 'invalid_login', message: 'E-posta ya da şifre hatalı.' });
+      return res
+        .status(401)
+        .json({ error: 'invalid_login', message: 'E-posta ya da şifre hatalı.' });
     }
     // New session id on login (prevents session fixation).
     return req.session.regenerate((err) => {
@@ -102,7 +104,9 @@ function adminRoutes({ repos, config }) {
     const sites =
       req.user.role === 'superadmin'
         ? repos.sites.list().map((s) => ({ slug: s.slug, name: s.name }))
-        : [repos.sites.findById(req.user.site_id)].filter(Boolean).map((s) => ({ slug: s.slug, name: s.name }));
+        : [repos.sites.findById(req.user.site_id)]
+            .filter(Boolean)
+            .map((s) => ({ slug: s.slug, name: s.name }));
     res.json({ user: toUserDto(req.user), sites, csrfToken: req.session.csrfToken });
   });
 
@@ -111,7 +115,11 @@ function adminRoutes({ repos, config }) {
     if (!verifyPassword(req.user, current)) {
       throw new ValidationError({ current: 'Mevcut şifre hatalı.' });
     }
-    if (typeof nextPassword !== 'string' || nextPassword.length < MIN_PASSWORD || nextPassword.length > 200) {
+    if (
+      typeof nextPassword !== 'string' ||
+      nextPassword.length < MIN_PASSWORD ||
+      nextPassword.length > 200
+    ) {
       throw new ValidationError({ next: `Yeni şifre en az ${MIN_PASSWORD} karakter olmalı.` });
     }
     if (nextPassword === current) {
@@ -143,7 +151,9 @@ function adminRoutes({ repos, config }) {
   router.get('/sites/:slug/items', siteAccess, (req, res) => {
     const collection = String(req.query.collection || '');
     if (!isCollection(collection)) throw new ValidationError({ collection: 'Bölüm adı geçersiz.' });
-    const items = repos.items.listAll(req.site.id, collection).map((row) => toItemDto(row, { admin: true }));
+    const items = repos.items
+      .listAll(req.site.id, collection)
+      .map((row) => toItemDto(row, { admin: true }));
     res.json({ collection, items });
   });
 
@@ -159,7 +169,8 @@ function adminRoutes({ repos, config }) {
 
   router.patch('/sites/:slug/items/:id', siteAccess, (req, res) => {
     const existing = repos.items.find(req.site.id, Number(req.params.id));
-    if (!existing) return res.status(404).json({ error: 'not_found', message: 'Kayıt bulunamadı.' });
+    if (!existing)
+      return res.status(404).json({ error: 'not_found', message: 'Kayıt bulunamadı.' });
     const fields = parseItemInput(req.body, { partial: true });
     delete fields.collection; // moving between collections is not supported
     const item = repos.items.update(req.site.id, existing.id, fields);
@@ -171,7 +182,8 @@ function adminRoutes({ repos, config }) {
 
   router.delete('/sites/:slug/items/:id', siteAccess, (req, res) => {
     const existing = repos.items.find(req.site.id, Number(req.params.id));
-    if (!existing) return res.status(404).json({ error: 'not_found', message: 'Kayıt bulunamadı.' });
+    if (!existing)
+      return res.status(404).json({ error: 'not_found', message: 'Kayıt bulunamadı.' });
     repos.items.remove(req.site.id, existing.id);
     if (existing.image) removeImage(config, req.site.slug, existing.image);
     return res.json({ ok: true });
@@ -179,7 +191,12 @@ function adminRoutes({ repos, config }) {
 
   router.post('/sites/:slug/items/reorder', siteAccess, (req, res) => {
     const { collection, ids } = req.body || {};
-    if (!isCollection(collection) || !Array.isArray(ids) || ids.length > 1000 || !ids.every(Number.isInteger)) {
+    if (
+      !isCollection(collection) ||
+      !Array.isArray(ids) ||
+      ids.length > 1000 ||
+      !ids.every(Number.isInteger)
+    ) {
       throw new ValidationError({ ids: 'Sıralama bilgisi geçersiz.' });
     }
     const items = repos.items.reorder(req.site.id, collection, ids);
@@ -193,9 +210,12 @@ function adminRoutes({ repos, config }) {
       if (err) {
         if (err.code === 'LIMIT_FILE_SIZE') {
           const mb = Math.round(config.uploadMaxBytes / 1024 / 1024);
-          return res.status(413).json({ error: 'too_large', message: `Fotoğraf en fazla ${mb} MB olabilir.` });
+          return res
+            .status(413)
+            .json({ error: 'too_large', message: `Fotoğraf en fazla ${mb} MB olabilir.` });
         }
-        if (err instanceof UploadError) return res.status(err.status).json({ error: err.code, message: err.message });
+        if (err instanceof UploadError)
+          return res.status(err.status).json({ error: err.code, message: err.message });
         return next(err);
       }
       try {

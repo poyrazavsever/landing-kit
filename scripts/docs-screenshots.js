@@ -6,6 +6,7 @@
  *
  *   node scripts/docs-screenshots.js --url http://localhost:3000 --password demo12345
  */
+/* global document */
 const path = require('node:path');
 const fs = require('node:fs');
 const { parseArgs } = require('node:util');
@@ -65,7 +66,12 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   await shot('admin-bilgiler');
 
   // Same panel, another customer's brand.
-  const fresh = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, locale: 'tr-TR' });
+  const fresh = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 2,
+    isMobile: true,
+    locale: 'tr-TR',
+  });
   const other = await fresh.newPage();
   await other.goto(`${opts.url}/admin/yildiz-kuruyemis`);
   await other.waitForSelector('input[name="email"]');
@@ -74,7 +80,10 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   console.log('  admin-giris-baska-marka.png');
 
   // Example landing page on desktop.
-  const desktop = await browser.newContext({ viewport: { width: 1280, height: 860 }, locale: 'tr-TR' });
+  const desktop = await browser.newContext({
+    viewport: { width: 1280, height: 860 },
+    locale: 'tr-TR',
+  });
   const landing = await desktop.newPage();
   await landing.goto(`${opts.url}/examples/restoran/`);
   await landing.waitForSelector('html.lk-ready');

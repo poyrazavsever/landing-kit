@@ -79,9 +79,13 @@ const DEMOS = [
         ['Saç + sakal', 'İkisi bir arada.', '350', 'sac-kesim'],
         ['Çocuk tıraşı', '12 yaş altı.', '180', 'cocuk'],
       ],
-      campaigns: [['Öğrenci indirimi', 'Hafta içi öğrenci kimliğiyle saç kesiminde %15 indirim.', '']],
+      campaigns: [
+        ['Öğrenci indirimi', 'Hafta içi öğrenci kimliğiyle saç kesiminde %15 indirim.', ''],
+      ],
     },
-    messages: [['Can', '0555 222 33 44', 'Perşembe 18:00 için saç + sakal randevusu alabilir miyim?']],
+    messages: [
+      ['Can', '0555 222 33 44', 'Perşembe 18:00 için saç + sakal randevusu alabilir miyim?'],
+    ],
   },
   {
     site: {
@@ -149,12 +153,16 @@ db.transaction(() => {
 db.close();
 
 if (!created.length) {
-  console.log('\n  Demo siteleri zaten var. Yeniden oluşturmak için: npm run seed:demo -- --reset\n');
+  console.log(
+    '\n  Demo siteleri zaten var. Yeniden oluşturmak için: npm run seed:demo -- --reset\n',
+  );
 } else {
   console.log('\n  ✓ Demo verisi yüklendi (hayali işletmeler)\n');
   for (const { site, email, password } of created) {
     console.log(`  ${site.name}`);
-    console.log(`    Sayfa : ${config.publicUrl}/examples/${{ 'cinaralti-lokanta': 'restoran', 'berber-ahmet': 'berber', 'yildiz-kuruyemis': 'dukkan' }[site.slug]}/`);
+    console.log(
+      `    Sayfa : ${config.publicUrl}/examples/${{ 'cinaralti-lokanta': 'restoran', 'berber-ahmet': 'berber', 'yildiz-kuruyemis': 'dukkan' }[site.slug]}/`,
+    );
     console.log(`    Panel : ${config.publicUrl}/admin/${site.slug}`);
     console.log(`    Giriş : ${email} / ${password}\n`);
   }

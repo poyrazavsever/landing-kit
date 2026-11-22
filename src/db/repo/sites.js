@@ -70,7 +70,9 @@ function sitesRepo(db) {
           phone: data.phone || null,
           address: data.address || null,
           opening_hours: JSON.stringify(data.opening_hours || defaultHours()),
-          collections: JSON.stringify(normalizeCollections(data.collections || ['menu', 'campaigns'])),
+          collections: JSON.stringify(
+            normalizeCollections(data.collections || ['menu', 'campaigns']),
+          ),
           logo_path: data.logo_path || null,
           color_primary: data.color_primary || null,
           color_secondary: data.color_secondary || null,

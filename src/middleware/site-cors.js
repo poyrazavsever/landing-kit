@@ -38,7 +38,8 @@ function isOriginAllowed(site, origin, config) {
 function siteCors({ repos, config }) {
   return (req, res, next) => {
     const site = repos.sites.findBySlug(req.params.slug);
-    if (!site) return res.status(404).json({ error: 'site_not_found', message: 'Site bulunamadı.' });
+    if (!site)
+      return res.status(404).json({ error: 'site_not_found', message: 'Site bulunamadı.' });
     req.site = site;
 
     const origin = req.get('origin');

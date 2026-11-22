@@ -35,7 +35,8 @@ const opts = args({
 
 if (!isSlug(opts.slug)) fail('--slug zorunlu: küçük harf, rakam ve tire (ör. berber-ahmet).');
 if (!opts.name) fail('--name zorunlu (ör. --name "Berber Ahmet").');
-if (!isEmail(opts.email)) fail('--email zorunlu ve geçerli olmalı (işletme sahibinin giriş adresi).');
+if (!isEmail(opts.email))
+  fail('--email zorunlu ve geçerli olmalı (işletme sahibinin giriş adresi).');
 for (const key of ['phone', 'whatsapp']) {
   if (opts[key] && !isPhone(opts[key])) fail(`--${key} geçersiz.`);
 }
@@ -44,7 +45,8 @@ for (const key of ['primary', 'secondary']) {
 }
 if (opts.font && !isFont(opts.font)) fail('--font geçersiz.');
 const collections = opts.collections ? list(opts.collections) : ['menu', 'campaigns'];
-if (!collections.every(isCollection)) fail('--collections sadece küçük harf, rakam, - ve _ içerebilir.');
+if (!collections.every(isCollection))
+  fail('--collections sadece küçük harf, rakam, - ve _ içerebilir.');
 
 const { config, db, repos } = boot();
 
@@ -54,7 +56,8 @@ if (repos.users.findByEmail(opts.email)) fail(`${opts.email} adresiyle bir kulla
 function copyLogo(file, slug) {
   if (!file) return null;
   const ext = path.extname(file).toLowerCase();
-  if (!['.png', '.jpg', '.jpeg', '.webp', '.svg'].includes(ext)) fail('--logo PNG, JPG, WEBP veya SVG olmalı.');
+  if (!['.png', '.jpg', '.jpeg', '.webp', '.svg'].includes(ext))
+    fail('--logo PNG, JPG, WEBP veya SVG olmalı.');
   if (!fs.existsSync(file)) fail(`Logo dosyası bulunamadı: ${file}`);
   const dir = path.join(config.uploadsDir, slug);
   fs.mkdirSync(dir, { recursive: true });
@@ -79,7 +82,13 @@ const site = db.transaction(() => {
     font_family: opts.font,
     logo_path: copyLogo(opts.logo, opts.slug),
   });
-  repos.users.create({ email: opts.email, password, role: 'owner', siteId: created.id, mustChange: true });
+  repos.users.create({
+    email: opts.email,
+    password,
+    role: 'owner',
+    siteId: created.id,
+    mustChange: true,
+  });
   return created;
 })();
 
@@ -96,15 +105,21 @@ console.log(`
   <script src="${config.publicUrl}/landing-kit.js" data-site="${site.slug}" defer></script>
 `);
 if (!site.domains.length) {
-  console.log('  Not: --domains vermediniz. Sitenin alan adını eklemezseniz form başka alan adından çalışmaz.');
-  console.log(`  Sonradan eklemek için: npm run site:update -- --slug ${site.slug} --domains alanadi.com\n`);
+  console.log(
+    '  Not: --domains vermediniz. Sitenin alan adını eklemezseniz form başka alan adından çalışmaz.',
+  );
+  console.log(
+    `  Sonradan eklemek için: npm run site:update -- --slug ${site.slug} --domains alanadi.com\n`,
+  );
 }
 
 db.close();
 
 if (!opts['no-guide']) {
   Promise.resolve()
-    .then(() => require('../src/guide/pdf').generateGuide({ slug: site.slug, username: opts.email }))
+    .then(() =>
+      require('../src/guide/pdf').generateGuide({ slug: site.slug, username: opts.email }),
+    )
     .then((file) => console.log(`  PDF rehber: ${file}\n`))
     .catch((err) => {
       console.warn(`  PDF rehber oluşturulamadı (${err.message}).`);

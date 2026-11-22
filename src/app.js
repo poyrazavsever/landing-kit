@@ -77,17 +77,23 @@ function createApp({ repos, config, notifier, logger = console }) {
 
   // Admin panel (static SPA). /admin/<slug> serves the same page branded for that site.
   app.use('/admin', express.static(path.join(PUBLIC_DIR, 'admin'), { index: 'index.html' }));
-  app.get('/admin/:slug', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'admin', 'index.html')));
+  app.get('/admin/:slug', (_req, res) =>
+    res.sendFile(path.join(PUBLIC_DIR, 'admin', 'index.html')),
+  );
 
   // The dependency-free client snippet.
   // Serves the minified build (npm run build) and falls back to the readable source.
   const snippetMin = path.join(PUBLIC_DIR, 'landing-kit.min.js');
-  const snippetFile = fs.existsSync(snippetMin) ? snippetMin : path.join(PUBLIC_DIR, 'landing-kit.js');
+  const snippetFile = fs.existsSync(snippetMin)
+    ? snippetMin
+    : path.join(PUBLIC_DIR, 'landing-kit.js');
   app.get('/landing-kit.js', (_req, res) => {
     res.set('Cache-Control', 'public, max-age=300');
     res.type('application/javascript').sendFile(snippetFile);
   });
-  app.get('/landing-kit.src.js', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'landing-kit.js')));
+  app.get('/landing-kit.src.js', (_req, res) =>
+    res.sendFile(path.join(PUBLIC_DIR, 'landing-kit.js')),
+  );
 
   app.use(
     '/uploads',
@@ -98,7 +104,10 @@ function createApp({ repos, config, notifier, logger = console }) {
       setHeaders: (res) => {
         res.set('X-Content-Type-Options', 'nosniff');
         // Uploaded files are never allowed to run scripts, even if opened directly.
-        res.set('Content-Security-Policy', "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox");
+        res.set(
+          'Content-Security-Policy',
+          "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox",
+        );
       },
     }),
   );

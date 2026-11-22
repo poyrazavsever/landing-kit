@@ -14,7 +14,14 @@ const { launchBrowser } = require('./browser');
 
 const GUIDE_MD = path.join(ROOT, 'docs', 'admin-rehberi.md');
 const DOCS_DIR = path.join(ROOT, 'docs');
-const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml' };
+const MIME = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+};
 
 function dataUri(file) {
   const type = MIME[path.extname(file).toLowerCase()];
@@ -26,10 +33,14 @@ function dataUri(file) {
 function logoDataUri(site, config) {
   const logo = site.logo_path || '';
   let file = null;
-  if (logo.startsWith('/uploads/')) file = path.join(config.uploadsDir, logo.slice('/uploads/'.length));
+  if (logo.startsWith('/uploads/'))
+    file = path.join(config.uploadsDir, logo.slice('/uploads/'.length));
   else if (logo.startsWith('/examples/')) file = path.join(ROOT, logo);
   const resolved = file && path.resolve(file);
-  const safe = resolved && (resolved.startsWith(path.resolve(config.uploadsDir)) || resolved.startsWith(path.join(ROOT, 'examples')));
+  const safe =
+    resolved &&
+    (resolved.startsWith(path.resolve(config.uploadsDir)) ||
+      resolved.startsWith(path.join(ROOT, 'examples')));
   return (safe && dataUri(resolved)) || dataUri(path.join(ROOT, 'brand', 'landing-kit-mark.svg'));
 }
 
@@ -61,7 +72,8 @@ async function generateGuide({ slug, username, out, config, repos } = {}) {
   try {
     const site = repos.sites.findBySlug(slug);
     if (!site) throw new Error(`Site bulunamadı: ${slug}`);
-    const owner = username || repos.users.listForSite(site.id).find((u) => u.role === 'owner')?.email;
+    const owner =
+      username || repos.users.listForSite(site.id).find((u) => u.role === 'owner')?.email;
     const panelUrl = `${config.publicUrl}/admin/${site.slug}`;
     const theme = siteTheme(site, BRAND);
     const html = guideHtml({

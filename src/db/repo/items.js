@@ -80,7 +80,9 @@ function itemsRepo(db) {
     },
 
     remove(siteId, id) {
-      return db.prepare('DELETE FROM items WHERE site_id = ? AND id = ?').run(siteId, id).changes > 0;
+      return (
+        db.prepare('DELETE FROM items WHERE site_id = ? AND id = ?').run(siteId, id).changes > 0
+      );
     },
 
     /** ids: the full new order for one collection. Ids of other sites are ignored. */

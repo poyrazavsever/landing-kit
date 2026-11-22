@@ -15,7 +15,10 @@ module.exports = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       // Plain text (no parse_mode) so visitor input can never inject formatting.
-      body: JSON.stringify({ chat_id: chatIdFor(config, site), text: formatMessage(site, message, config) }),
+      body: JSON.stringify({
+        chat_id: chatIdFor(config, site),
+        text: formatMessage(site, message, config),
+      }),
       signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) throw new Error(`Telegram API responded ${res.status}`);

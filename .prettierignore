@@ -4,3 +4,4 @@ uploads
 docs/samples
 package-lock.json
 public/landing-kit.min.js
+examples/**/*.html

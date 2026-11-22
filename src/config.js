@@ -12,8 +12,11 @@ function loadEnvFile() {
 }
 
 const bool = (value, fallback = false) =>
-  value === undefined || value === '' ? fallback : ['1', 'true', 'yes'].includes(String(value).toLowerCase());
-const num = (value, fallback) => (Number.isFinite(Number(value)) && value !== '' ? Number(value) : fallback);
+  value === undefined || value === ''
+    ? fallback
+    : ['1', 'true', 'yes'].includes(String(value).toLowerCase());
+const num = (value, fallback) =>
+  Number.isFinite(Number(value)) && value !== '' ? Number(value) : fallback;
 
 /**
  * Builds the runtime config from environment variables.
@@ -44,8 +47,14 @@ function createConfig(overrides = {}) {
     trustProxy: num(env.TRUST_PROXY, 0),
     serveExamples: bool(env.SERVE_EXAMPLES, !isProduction),
     rateLimits: {
-      contact: { limit: num(env.CONTACT_RATE_LIMIT, 5), windowMin: num(env.CONTACT_RATE_WINDOW_MIN, 10) },
-      login: { limit: num(env.LOGIN_RATE_LIMIT, 10), windowMin: num(env.LOGIN_RATE_WINDOW_MIN, 15) },
+      contact: {
+        limit: num(env.CONTACT_RATE_LIMIT, 5),
+        windowMin: num(env.CONTACT_RATE_WINDOW_MIN, 10),
+      },
+      login: {
+        limit: num(env.LOGIN_RATE_LIMIT, 10),
+        windowMin: num(env.LOGIN_RATE_WINDOW_MIN, 15),
+      },
     },
     uploadMaxBytes: num(env.UPLOAD_MAX_MB, 5) * 1024 * 1024,
     smtp: {

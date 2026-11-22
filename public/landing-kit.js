@@ -4,10 +4,18 @@
   var script = document.currentScript || document.querySelector('script[data-site]');
   if (!script || !script.getAttribute('data-site')) return;
 
-  var api = (script.getAttribute('data-api') || new URL(script.src, location.href).origin).replace(/\/+$/, '');
+  var api = (script.getAttribute('data-api') || new URL(script.src, location.href).origin).replace(
+    /\/+$/,
+    '',
+  );
   var base = api + '/api/sites/' + encodeURIComponent(script.getAttribute('data-site'));
   var DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
-  var money = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  var money = new Intl.NumberFormat('tr-TR', {
+    style: 'currency',
+    currency: 'TRY',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
 
   function all(sel, root) {
     return Array.prototype.slice.call((root || document).querySelectorAll(sel));
@@ -34,10 +42,16 @@
     return 'https://wa.me/' + d;
   }
   var HREF = {
-    phone: function (v) { return 'tel:' + digits(v); },
+    phone: function (v) {
+      return 'tel:' + digits(v);
+    },
     whatsapp: whatsapp,
-    email: function (v) { return 'mailto:' + v; },
-    maps: function (v) { return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v); },
+    email: function (v) {
+      return 'mailto:' + v;
+    },
+    maps: function (v) {
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v);
+    },
   };
 
   /** "Pazartesi–Cuma: 09:00–19:00" lines, consecutive identical days grouped. */
@@ -164,12 +178,16 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var data = {};
-      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      new FormData(form).forEach(function (v, k) {
+        data[k] = v;
+      });
       var kvkk = form.querySelector('[name="kvkk"]');
       if (kvkk) data.kvkk = kvkk.checked;
       var button = form.querySelector('[type="submit"]');
       if (button) button.disabled = true;
-      all('[aria-invalid]', form).forEach(function (el) { el.removeAttribute('aria-invalid'); });
+      all('[aria-invalid]', form).forEach(function (el) {
+        el.removeAttribute('aria-invalid');
+      });
       status(form, 'sending', form.getAttribute('data-lk-sending') || 'Gönderiliyor…');
 
       fetch(base + '/contact', {
@@ -178,14 +196,23 @@
         body: JSON.stringify(data),
       })
         .then(function (r) {
-          return r.json().catch(function () { return {}; }).then(function (body) {
-            if (!r.ok) throw body;
-            return body;
-          });
+          return r
+            .json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (body) {
+              if (!r.ok) throw body;
+              return body;
+            });
         })
         .then(function () {
           form.reset();
-          status(form, 'success', form.getAttribute('data-lk-success') || 'Mesajınız iletildi. Teşekkürler!');
+          status(
+            form,
+            'success',
+            form.getAttribute('data-lk-success') || 'Mesajınız iletildi. Teşekkürler!',
+          );
           emit(form, 'sent', data);
         })
         .catch(function (err) {
@@ -195,7 +222,10 @@
             if (field) field.setAttribute('aria-invalid', 'true');
           });
           var first = errors[Object.keys(errors)[0]];
-          var text = first || (err && err.message) || form.getAttribute('data-lk-error') ||
+          var text =
+            first ||
+            (err && err.message) ||
+            form.getAttribute('data-lk-error') ||
             'Mesaj gönderilemedi. Lütfen bizi telefonla arayın.';
           status(form, 'error', text);
           emit(form, 'error', err);

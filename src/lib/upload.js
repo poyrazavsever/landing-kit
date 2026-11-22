@@ -10,11 +10,14 @@ const TYPES = {
   'image/jpeg': { ext: 'jpg', magic: (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff },
   'image/png': {
     ext: 'png',
-    magic: (b) => b.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])),
+    magic: (b) =>
+      b.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])),
   },
   'image/webp': {
     ext: 'webp',
-    magic: (b) => b.subarray(0, 4).toString('latin1') === 'RIFF' && b.subarray(8, 12).toString('latin1') === 'WEBP',
+    magic: (b) =>
+      b.subarray(0, 4).toString('latin1') === 'RIFF' &&
+      b.subarray(8, 12).toString('latin1') === 'WEBP',
   },
   'image/gif': { ext: 'gif', magic: (b) => b.subarray(0, 4).toString('latin1') === 'GIF8' },
 };
@@ -34,7 +37,13 @@ function imageUpload(config) {
     limits: { fileSize: config.uploadMaxBytes, files: 1, fields: 5 },
     fileFilter: (_req, file, cb) => {
       if (!TYPES[file.mimetype]) {
-        return cb(new UploadError(415, 'unsupported_type', 'Sadece JPG, PNG, WEBP veya GIF yükleyebilirsiniz.'));
+        return cb(
+          new UploadError(
+            415,
+            'unsupported_type',
+            'Sadece JPG, PNG, WEBP veya GIF yükleyebilirsiniz.',
+          ),
+        );
       }
       return cb(null, true);
     },

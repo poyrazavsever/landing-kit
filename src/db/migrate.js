@@ -16,7 +16,10 @@ function migrate(db, dir = MIGRATIONS_DIR) {
   )`);
 
   const applied = new Set(
-    db.prepare('SELECT name FROM schema_migrations').all().map((row) => row.name),
+    db
+      .prepare('SELECT name FROM schema_migrations')
+      .all()
+      .map((row) => row.name),
   );
   const files = fs
     .readdirSync(dir)
