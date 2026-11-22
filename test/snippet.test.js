@@ -132,7 +132,7 @@ test('renders list templates with TR price formatting and hides empty fields', a
   const price0 = articles[0].querySelector('.price').textContent.replace(/\s/g, ' ');
   const price1 = articles[1].querySelector('.price').textContent.replace(/\s/g, ' ');
   assert.match(price0, /^₺250$/);
-  assert.match(price1, /^₺1\.249,5$/);
+  assert.match(price1, /^₺1\.249,50$/);
   assert.equal(articles[1].querySelector('.desc').hidden, true);
   assert.equal(articles[1].querySelector('img').hidden, true);
   assert.equal(document.querySelector('#camp .lk-empty').textContent, 'Kampanya yok');

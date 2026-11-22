@@ -10,12 +10,18 @@
   );
   var base = api + '/api/sites/' + encodeURIComponent(script.getAttribute('data-site'));
   var DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
-  var money = new Intl.NumberFormat('tr-TR', {
-    style: 'currency',
-    currency: 'TRY',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  });
+  // ₺150 for whole amounts, ₺149,90 otherwise (Turkish format).
+  var money = {
+    format: function (value) {
+      var whole = Math.round(value * 100) % 100 === 0;
+      return new Intl.NumberFormat('tr-TR', {
+        style: 'currency',
+        currency: 'TRY',
+        minimumFractionDigits: whole ? 0 : 2,
+        maximumFractionDigits: whole ? 0 : 2,
+      }).format(value);
+    },
+  };
 
   function all(sel, root) {
     return Array.prototype.slice.call((root || document).querySelectorAll(sel));
