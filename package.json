@@ -1,6 +1,6 @@
 {
   "name": "landing-kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Turn static landing pages into dynamic sites that small business owners update from their phone. Express + SQLite.",
   "license": "MIT",
   "author": "Poyraz Avsever",
