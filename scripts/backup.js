@@ -20,7 +20,10 @@ const opts = args({
 
 const { config, db } = boot();
 const root = path.resolve(opts.out || path.join(config.dataDir, 'backups'));
-const stamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '');
+// Local time, e.g. 2026-11-22_0300
+const now = new Date();
+const pad = (n) => String(n).padStart(2, '0');
+const stamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
 const target = path.join(root, stamp);
 fs.mkdirSync(target, { recursive: true });
 
