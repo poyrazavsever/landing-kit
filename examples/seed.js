@@ -38,6 +38,7 @@ const DEMOS = [
       color_primary: '#7C2D12',
       color_secondary: '#F59E0B',
       font_family: 'Georgia',
+      logo_path: '/examples/assets/cinaralti-logo.svg',
     },
     owner: 'lokanta@example.com',
     items: {
@@ -68,6 +69,7 @@ const DEMOS = [
       color_primary: '#111827',
       color_secondary: '#D4A373',
       font_family: 'Segoe UI',
+      logo_path: '/examples/assets/berber-logo.svg',
     },
     owner: 'ahmet@example.com',
     items: {
@@ -94,6 +96,7 @@ const DEMOS = [
       color_primary: '#166534',
       color_secondary: '#FACC15',
       font_family: 'Trebuchet MS',
+      logo_path: '/examples/assets/yildiz-logo.svg',
     },
     owner: 'yildiz@example.com',
     items: {
