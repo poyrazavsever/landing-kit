@@ -95,7 +95,11 @@ function createApp({ repos, config, notifier, logger = console }) {
       maxAge: '7d',
       immutable: true,
       fallthrough: false,
-      setHeaders: (res) => res.set('X-Content-Type-Options', 'nosniff'),
+      setHeaders: (res) => {
+        res.set('X-Content-Type-Options', 'nosniff');
+        // Uploaded files are never allowed to run scripts, even if opened directly.
+        res.set('Content-Security-Policy', "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox");
+      },
     }),
   );
 
@@ -105,7 +109,6 @@ function createApp({ repos, config, notifier, logger = console }) {
 
   app.use((req, res) => res.status(404).json({ error: 'not_found', message: 'Bulunamadı.' }));
 
-  // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, _next) => {
     if (err instanceof ValidationError) {
       return res
