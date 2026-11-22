@@ -1,0 +1,21 @@
+# systemd unit for running landing-kit without Docker.
+# sudo cp deploy/landing-kit.service /etc/systemd/system/ && sudo systemctl enable --now landing-kit
+[Unit]
+Description=landing-kit
+After=network.target
+
+[Service]
+Type=simple
+User=landingkit
+WorkingDirectory=/opt/landing-kit
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node src/server.js
+Restart=on-failure
+RestartSec=5
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

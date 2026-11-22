@@ -1,0 +1,6 @@
+# Caddy: automatic HTTPS in front of landing-kit.
+# Replace api.ornek.com with your own domain (its DNS A record must point to this server).
+api.ornek.com {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000
+}
