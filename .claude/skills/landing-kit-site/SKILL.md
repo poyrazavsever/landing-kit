@@ -63,7 +63,7 @@ docker compose up -d
 docker compose exec -u node landing-kit npm run site:create -- --slug ... --name "..." --email ...
 ```
 
-Docker'sız: Node 22+, `npm ci --omit=dev`, `npx playwright install --with-deps --only-shell chromium` (PDF için), `deploy/landing-kit.service` (systemd) ve `deploy/Caddyfile` (otomatik HTTPS). Statik sayfa herhangi bir statik hostta durabilir; sadece snippet'in `src`'si landing-kit sunucusunu gösterir.
+Docker'sız: Node 22+, `npm ci && npm run build && npm prune --omit=dev` (yönetim paneli derlenir), `npx playwright install --with-deps --only-shell chromium` (PDF için), `deploy/landing-kit.service` (systemd) ve `deploy/Caddyfile` (otomatik HTTPS). Statik sayfa herhangi bir statik hostta durabilir; sadece snippet'in `src`'si landing-kit sunucusunu gösterir.
 
 Kontrol listesi:
 

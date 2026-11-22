@@ -15,6 +15,7 @@ landing-kit'e katkı vermek istediğiniz için teşekkürler. _English below._
 git clone https://github.com/poyrazavsever/landing-kit.git
 cd landing-kit
 npm install
+npm run build
 cp .env.example .env
 npm run seed:demo -- --password demo12345
 npm run dev
@@ -26,7 +27,8 @@ npm run dev
 npm run lint
 npm run format:check   # düzeltmek için: npm run format
 npm test
-npm run build          # public/landing-kit.js değiştiyse
+npm run build          # snippet + yönetim paneli
+npm run test:e2e       # gerçek tarayıcıyla uçtan uca test
 ```
 
 ### Kurallar
@@ -39,6 +41,7 @@ npm run build          # public/landing-kit.js değiştiyse
 - Snippet bağımlılıksız kalır ve küçük kalır (minify sonrası ~7 KB'ın altında; testte kontrol ediliyor).
 - Şema değişikliği = `src/db/migrations/` altında **yeni** bir dosya. Uygulanmış bir migration dosyasını değiştirmeyin.
 - Yeni bildirim kanalı = `src/notify/` altına bir dosya (`name`, `isEnabled`, `send`).
+- Yönetim paneli `admin/` altında (React + Vite + Tailwind + shadcn/ui). Yeni arayüz parçası için önce `admin/src/components/ui/` içindeki bileşenleri kullanın; renkleri sabit yazmayın, tema değişkenlerini (`bg-primary`, `text-accent-foreground`…) kullanın ki her müşterinin markası çalışsın.
 - Panel metinleri için [docs/style-guide.md](docs/style-guide.md) içindeki yazım diline uyun.
 - Belgelerde uydurma rakam, performans iddiası, hukuki garanti ya da gelir vaadi olmasın.
 
@@ -50,7 +53,7 @@ Güvenlik açıklarını herkese açık issue olarak değil, GitHub'ın **Securi
 
 - Open an issue before large changes (new modules, schema changes, new dependencies).
 - Setup: `npm install`, `cp .env.example .env`, `npm run seed:demo -- --password demo12345`, `npm run dev`.
-- Before a PR: `npm run lint`, `npm run format:check`, `npm test`, and `npm run build` if the snippet changed.
+- Before a PR: `npm run lint`, `npm run format:check`, `npm test`, `npm run build` and `npm run test:e2e`. The admin panel lives in `admin/` (React + Vite + Tailwind + shadcn/ui); use theme variables, never hard-coded colors, so per-site branding keeps working.
 - Code, identifiers and commit messages in English (Conventional Commits); user-facing texts in Turkish.
 - Parameterized SQL only. Every admin query is scoped by `site_id`; add a tenant-isolation test for new admin endpoints.
 - Render user content with `textContent`, never `innerHTML`. Keep the snippet dependency-free and small.

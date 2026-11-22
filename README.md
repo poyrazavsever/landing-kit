@@ -43,23 +43,33 @@ Claude'a (ya da herhangi birine) bir restoran, berber veya dükkân için güzel
                                                                           Telegram
 ```
 
-### Ekran görüntüleri
+### Örnek: En İyi Etler
+
+**En İyi Etler** hayali bir ızgara/et lokantasıdır (örnek işletme, gerçek değildir). Statik bir sayfaya birkaç `data-lk-*` özelliği eklenerek bağlandı; menü, kampanya, saatler ve rezervasyon formu landing-kit'ten gelir. Marka kiti (logo, renkler, yazı tipleri, görseller): [examples/en-iyi-etler/brand/](examples/en-iyi-etler/brand/).
+
+![En İyi Etler örnek sayfası](docs/images/ornek-sayfa.png)
+
+| Menü bölümü (masaüstü)                    | Telefonda                                       |
+| ----------------------------------------- | ----------------------------------------------- |
+| ![Menü](docs/images/ornek-sayfa-menu.png) | ![Telefonda](docs/images/ornek-sayfa-mobil.png) |
+
+### Yönetim paneli (En İyi Etler markasıyla)
 
 | Giriş (müşterinin markası)            | Ana sayfa                                     | Menü                                | Ürün düzenleme                            |
 | ------------------------------------- | --------------------------------------------- | ----------------------------------- | ----------------------------------------- |
 | ![Giriş](docs/images/admin-giris.png) | ![Ana sayfa](docs/images/admin-ana-sayfa.png) | ![Menü](docs/images/admin-menu.png) | ![Düzenle](docs/images/admin-duzenle.png) |
 
-| Mesajlar                                    | İşletme bilgileri                           | Başka bir müşterinin paneli                             | Örnek sayfa                                       |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------- |
-| ![Mesajlar](docs/images/admin-mesajlar.png) | ![Bilgiler](docs/images/admin-bilgiler.png) | ![Başka marka](docs/images/admin-giris-baska-marka.png) | ![Örnek restoran](docs/images/ornek-restoran.png) |
+| Mesajlar                                    | İşletme bilgileri                           | Aynı panel, başka müşteri                               | Müşteriye PDF rehber                                 |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| ![Mesajlar](docs/images/admin-mesajlar.png) | ![Bilgiler](docs/images/admin-bilgiler.png) | ![Başka marka](docs/images/admin-giris-baska-marka.png) | ![Örnek PDF kapağı](docs/images/ornek-pdf-kapak.png) |
 
-Örnek müşteri PDF rehberi: [docs/samples/cinaralti-lokanta-admin-rehberi.pdf](docs/samples/cinaralti-lokanta-admin-rehberi.pdf)
+Örnek müşteri PDF rehberi: [docs/samples/en-iyi-etler-admin-rehberi.pdf](docs/samples/en-iyi-etler-admin-rehberi.pdf)
 
 ### Özellikler
 
 - **Public API:** site bilgisi, aktif ve sıralı koleksiyon kayıtları, iletişim formu.
 - **Koleksiyonlar veridir:** `menu`, `services`, `products`, `campaigns`, `gallery`, `faq`… Yeni bir bölüm için kod yazmazsınız.
-- **Yönetim paneli:** mobil öncelikli, sade Türkçe; ekle/düzenle/gizle/sırala, kameradan fotoğraf (yüklemeden önce otomatik küçültme), mesaj kutusu (Ara / WhatsApp / E-posta), işletme bilgileri ve 7 günlük çalışma saatleri.
+- **Yönetim paneli:** React + Vite + Tailwind + [shadcn/ui](https://ui.shadcn.com) ile, mobil öncelikli ve sade Türkçe; alt menü, ekle/düzenle/gizle (anahtar), sürükleyerek sıralama (dokunma, fare, klavye), kameradan ya da galeriden fotoğraf (önizleme, yüklemeden önce otomatik küçültme), mesaj kutusu (Ara / WhatsApp / E-posta), işletme bilgileri ve 7 günlük çalışma saatleri. Yükleniyor/boş/hata durumları, bildirimler ve silmeden önce onay. Yazı tipleri (Inter, Bricolage Grotesque, Playfair Display) pakete gömülüdür; harici font servisi yok, Türkçe karakterler tam.
 - **Siteye özel panel:** her müşterinin paneli kendi logosu, renkleri ve yazı tipiyle açılır; yazı kontrastı otomatik korunur.
 - **Müşteriye PDF rehber:** `npm run guide:pdf` müşterinin markasıyla; panel adresi, kullanıcı adı, QR kod ve destek bilgisiyle A4 PDF üretir.
 - **Bildirimler:** SMTP e-posta ve Telegram botu; yeni kanal = `src/notify/` altına bir dosya.
@@ -76,13 +86,15 @@ Gereken: Node.js 22 veya üstü.
 git clone https://github.com/poyrazavsever/landing-kit.git
 cd landing-kit
 npm install
+npm run build                   # snippet + yönetim paneli (public/admin)
 cp .env.example .env            # Windows: copy .env.example .env
 npm run seed:demo -- --password demo12345
 npm start
 ```
 
 - Örnek sayfalar: <http://localhost:3000/examples/>
-- Panel: <http://localhost:3000/admin/cinaralti-lokanta> (giriş: `lokanta@example.com` / `demo12345`)
+- Örnek site: <http://localhost:3000/examples/en-iyi-etler/>
+- Panel: <http://localhost:3000/admin/en-iyi-etler> (giriş: `eniyietler@example.com` / `demo12345`)
 
 > `--password` sadece yerel demo içindir. Parametresiz `npm run seed:demo` rastgele şifreler üretir.
 
@@ -132,7 +144,7 @@ Bir Ubuntu/Debian VPS, bir alan adı (ör. `api.ornek.com`) ve sunucuda Docker g
 ```bash
 sudo useradd --system --home /opt/landing-kit landingkit
 sudo git clone https://github.com/poyrazavsever/landing-kit.git /opt/landing-kit
-cd /opt/landing-kit && sudo npm ci --omit=dev
+cd /opt/landing-kit && sudo npm ci && sudo npm run build && sudo npm prune --omit=dev
 sudo npx playwright install --with-deps --only-shell chromium   # sadece PDF rehber için
 sudo cp .env.example .env && sudo nano .env                     # yukarıdaki ayarlar
 sudo chown -R landingkit:landingkit /opt/landing-kit
@@ -313,7 +325,8 @@ src/
   notify/        email.js, telegram.js (her dosya bir kanal)
   guide/         PDF rehber (şablon + Chromium)
   lib/           doğrulama, yükleme, oturum deposu
-public/          landing-kit.js (+ .min.js), admin/ (panel)
+admin/           yönetim paneli kaynağı (React + Vite + Tailwind + shadcn/ui)
+public/          landing-kit.js (+ .min.js), admin/ (panelin derlenmiş hâli, git'te yok)
 scripts/         site-create, site-update, admin-create, user-reset, backup, guide-pdf
 examples/        restoran, berber, dükkân + seed.js
 prompts/         Claude prompt şablonları
@@ -330,7 +343,9 @@ npm run dev            # dosya değişince yeniden başlar
 npm test               # bütün testler
 npm run lint           # ESLint
 npm run format         # Prettier
-npm run build          # public/landing-kit.min.js
+npm run build          # public/landing-kit.min.js + public/admin
+npm run dev:admin      # panel için Vite geliştirme sunucusu (API'yi :3000'e yönlendirir)
+npm run test:e2e       # gerçek tarayıcıyla uçtan uca test (önce npm run build)
 ```
 
 ### Katkı ve lisans
@@ -357,8 +372,8 @@ MIT Lisansı © 2026 Poyraz Avsever. Ayrıntı: [LICENSE](LICENSE).
 
 - Public API: site info, active and sorted collection items, contact form.
 - Collections are data (`menu`, `services`, `products`, `campaigns`, `gallery`, `faq`, …): new sections need no code.
-- Admin panel: add/edit/hide/reorder, camera photo upload with client-side resize, inbox with call/WhatsApp/email shortcuts, site info and weekly opening hours. Turkish UI written for non-technical users, 44–48 px tap targets, automatic contrast correction for customer colors.
-- Branded customer PDF guide (`npm run guide:pdf`) with panel URL, username, QR code and your support contact. Sample: [docs/samples/cinaralti-lokanta-admin-rehberi.pdf](docs/samples/cinaralti-lokanta-admin-rehberi.pdf).
+- Admin panel built with React, Vite, Tailwind and shadcn/ui: bottom navigation, add/edit, hide with a switch, drag reordering (touch, pointer, keyboard), camera or gallery upload with preview and client-side resize, inbox with call/WhatsApp/email shortcuts, site info and weekly opening hours, loading/empty/error states, toasts and confirm dialogs. Turkish UI for non-technical users, 44 px+ tap targets, self-hosted fonts with full Turkish glyphs, automatic contrast correction for customer colors.
+- Branded customer PDF guide (`npm run guide:pdf`) with panel URL, username, QR code and your support contact. Sample: [docs/samples/en-iyi-etler-admin-rehberi.pdf](docs/samples/en-iyi-etler-admin-rehberi.pdf).
 - Security: helmet, per-site CORS allow-list, rate limiting on form and login, honeypot, bcrypt, `httpOnly` + `SameSite=Strict` (+ `secure` in production) session cookie, CSRF tokens, forced password change on first login, input validation, parameterized SQL only, upload size/type/file-signature checks.
 - Dependency-free client snippet, ~5.5 KB minified (~2.3 KB gzip). If the API is unreachable, the static page content stays.
 - Docker + docker-compose with `/healthz`, Caddy and systemd examples. Tests with `node --test`.
@@ -368,12 +383,13 @@ MIT Lisansı © 2026 Poyraz Avsever. Ayrıntı: [LICENSE](LICENSE).
 ```bash
 git clone https://github.com/poyrazavsever/landing-kit.git && cd landing-kit
 npm install
+npm run build
 cp .env.example .env
 npm run seed:demo -- --password demo12345
 npm start
 ```
 
-Open <http://localhost:3000/examples/> and the panel at <http://localhost:3000/admin/cinaralti-lokanta> (`lokanta@example.com` / `demo12345`). Node.js 22+ is required.
+Open the showcase <http://localhost:3000/examples/en-iyi-etler/> (a fictional example business) and its panel at <http://localhost:3000/admin/en-iyi-etler> (`eniyietler@example.com` / `demo12345`). Node.js 22+ is required.
 
 ### Deploy on a VPS (target: 15 minutes)
 
@@ -386,7 +402,7 @@ Open <http://localhost:3000/examples/> and the panel at <http://localhost:3000/a
 
 For a smaller image without the PDF generator (about 400 MB instead of about 1.3 GB in our build): `docker compose build --build-arg WITH_PDF=false`.
 
-Without Docker: `npm ci --omit=dev`, `npx playwright install --with-deps --only-shell chromium` (PDF only), `deploy/landing-kit.service` for systemd, then Caddy as above. `PDF_BROWSER_PATH` can point to an installed Chrome/Edge instead.
+Without Docker: `npm ci && npm run build && npm prune --omit=dev`, `npx playwright install --with-deps --only-shell chromium` (PDF only), `deploy/landing-kit.service` for systemd, then Caddy as above. `PDF_BROWSER_PATH` can point to an installed Chrome/Edge instead.
 
 ### Add a customer
 
