@@ -3,3 +3,4 @@ data
 uploads
 docs/samples
 package-lock.json
+public/landing-kit.min.js
