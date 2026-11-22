@@ -23,8 +23,21 @@ function textOn(hex) {
  * data: { site, theme, logo, panelUrl, username, qrSvg, support, bodyHtml, date }
  */
 function guideHtml(data) {
-  const { site, theme, logo, panelUrl, username, qrSvg, support, bodyHtml, date } = data;
-  const font = `"${String(theme.font).replace(/["\\<>]/g, '')}", Inter, "Segoe UI", system-ui, sans-serif`;
+  const {
+    site,
+    theme,
+    logo,
+    panelUrl,
+    username,
+    qrSvg,
+    support,
+    bodyHtml,
+    date,
+    fontCss = '',
+    headingFamily,
+  } = data;
+  const body = `'Inter Variable', Inter, 'Segoe UI', system-ui, sans-serif`;
+  const heading = `"${String(headingFamily || theme.font).replace(/["\\<>]/g, '')}", ${body}`;
   const onPrimary = textOn(theme.primary);
   const supportLines = [
     support.name && `<strong>${esc(support.name)}</strong>`,
@@ -38,11 +51,13 @@ function guideHtml(data) {
 <meta charset="utf-8" />
 <title>${esc(site.name)} · Yönetim Paneli Rehberi</title>
 <style>
+${fontCss}
+  h1, h2, h3 { font-family: ${heading}; letter-spacing: -0.01em; }
   @page { size: A4; margin: 18mm 16mm 20mm; }
   @page :first { margin: 0; }
   * { box-sizing: border-box; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { margin: 0; font-family: ${font}; color: #0E1525; font-size: 10.5pt; line-height: 1.55; }
+  body { margin: 0; font-family: ${body}; color: #0E1525; font-size: 10.5pt; line-height: 1.55; }
   .cover { height: 297mm; display: flex; flex-direction: column; page-break-after: always; }
   .cover-top { background: ${theme.primary}; color: ${onPrimary}; padding: 26mm 18mm 16mm; }
   .cover-top img { width: 26mm; height: 26mm; object-fit: contain; background: #fff; border-radius: 6mm; padding: 2.5mm; }

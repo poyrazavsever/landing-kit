@@ -11,6 +11,7 @@ const { siteTheme } = require('../db/repo/sites');
 const { BRAND } = require('../lib/defaults');
 const { guideHtml, esc } = require('./template');
 const { launchBrowser } = require('./browser');
+const { fontFamily, fontFaceCss } = require('./fonts');
 
 const GUIDE_MD = path.join(ROOT, 'docs', 'admin-rehberi.md');
 const DOCS_DIR = path.join(ROOT, 'docs');
@@ -86,6 +87,8 @@ async function generateGuide({ slug, username, out, config, repos } = {}) {
       support: config.support,
       bodyHtml: guideBodyHtml(),
       date: new Date().toLocaleDateString('tr-TR', { dateStyle: 'long' }),
+      fontCss: fontFaceCss(['Inter', theme.font]),
+      headingFamily: fontFamily(theme.font),
     });
 
     const file = path.resolve(out || path.join(config.guidesDir, `${site.slug}-admin-rehberi.pdf`));
