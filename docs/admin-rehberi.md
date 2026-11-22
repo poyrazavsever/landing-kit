@@ -2,18 +2,18 @@
 
 Bu rehber, işletmenizin sitesini **telefonunuzdan** güncellemeniz için hazırlandı. Teknik bilgi gerekmez. Yaptığınız her değişiklik sitede **hemen** görünür; kimseyi aramanıza ya da beklemenize gerek yok.
 
-> Panel adresinizi ve kullanıcı adınızı sitenizi kuran kişi size verir. Bu adresi telefonunuzun ana ekranına eklerseniz bir uygulama gibi tek dokunuşla açılır (aşağıda "İpuçları" bölümüne bakın).
+> Panel adresinizi ve kullanıcı adınızı sitenizi kuran kişi size verir. Panel sizin logonuz, renkleriniz ve adınızla açılır. Adresi telefonunuzun ana ekranına eklerseniz bir uygulama gibi tek dokunuşla açılır (aşağıda "İpuçları" bölümüne bakın).
 
 ## 1. Panele giriş
 
 1. Telefonunuzdan panel adresinizi açın. Ekranda kendi logonuzu ve işletme adınızı görürsünüz.
 2. **E-posta adresiniz** kutusuna size verilen e-postayı yazın.
-3. **Şifreniz** kutusuna şifrenizi yazın.
+3. **Şifreniz** kutusuna şifrenizi yazın. Yazdığınızı görmek isterseniz kutunun sağındaki göz simgesine dokunun.
 4. **Giriş yap** düğmesine dokunun.
 
 ![Giriş ekranı](images/admin-giris.png)
 
-Giriş yaptıktan sonra telefonunuz sizi hatırlar. Her seferinde şifre yazmanız gerekmez. Ortak kullanılan bir cihazdaysanız işiniz bitince sağ üstteki **Çıkış** düğmesine dokunun.
+Giriş yaptıktan sonra telefonunuz sizi hatırlar. Her seferinde şifre yazmanız gerekmez. Ortak kullanılan bir cihazdaysanız işiniz bitince sağ üstteki çıkış simgesine dokunun.
 
 ## 2. İlk girişte kendi şifrenizi belirleyin
 
@@ -25,29 +25,31 @@ Giriş yaptıktan sonra telefonunuz sizi hatırlar. Her seferinde şifre yazman�
 
 Şifrenizi kimseyle paylaşmayın. Sitenizi kuran kişi de şifrenizi göremez.
 
-## 3. Ana sayfa
+## 3. Ana sayfa ve alt menü
 
-Girişten sonra ana sayfayı görürsünüz. Buradaki kutular sitenizin bölümleridir: örneğin **Menü**, **Hizmetler**, **Ürünler** ya da **Kampanyalar**. Her kutuda kaç kaydın sitede göründüğü ve kaçının gizli olduğu yazar.
+Girişten sonra ana sayfayı görürsünüz. **Sitenizin bölümleri** başlığı altındaki kutular sitenizin bölümleridir: örneğin **Menü**, **Hizmetler**, **Ürünler** ya da **Kampanyalar**. Her kutuda kaç kaydın sitede göründüğü ve kaçının gizli olduğu yazar.
 
 ![Ana sayfa](images/admin-ana-sayfa.png)
 
-- **Mesajlar**: Sitenizdeki formdan gelen mesajlar. Yeni mesaj varsa yanında sarı bir sayı görünür.
-- **İşletme bilgileri**: Telefon, WhatsApp, adres ve çalışma saatleri.
-- **Şifremi değiştir**: Giriş şifrenizi yenilemek için.
+Ekranın altındaki menüden üç yere tek dokunuşla geçersiniz:
+
+- **Ana sayfa**: bölümleriniz.
+- **Mesajlar**: sitenizdeki formdan gelen mesajlar. Yeni mesaj varsa simgenin üstünde bir sayı görünür.
+- **Bilgiler**: telefon, WhatsApp, adres ve çalışma saatleri.
 
 ## 4. Fotoğraflı yeni bir ürün ekleyin
 
 Örnek: menünüze yeni bir yemek ekleyelim.
 
 1. Ana sayfada **Menü** kutusuna dokunun.
-2. Ekranın altındaki **+ Yeni ekle** düğmesine dokunun.
+2. Sağ üstteki **Yeni ekle** düğmesine dokunun (bölüm boşsa ortadaki **İlk kaydı ekle** düğmesine).
 3. **Fotoğraf çek** düğmesine dokunun ve ürünün fotoğrafını çekin. Telefonunuzda hazır bir fotoğraf varsa **Galeriden seç** düğmesini kullanın.
-4. Fotoğraf yüklenince önizlemesini görürsünüz.
-5. **Başlık** kutusuna ürünün adını yazın (örneğin "Adana Kebap").
-6. İsterseniz **Açıklama** yazın (örneğin "Közlenmiş biber ve domatesle").
+4. Fotoğraf yüklenince önizlemesini görürsünüz; ekranın üstünde "Fotoğraf yüklendi" yazar.
+5. **Başlık** kutusuna ürünün adını yazın (örneğin "Dana Antrikot").
+6. İsterseniz **Açıklama** yazın (örneğin "Közlenmiş sebze ile").
 7. **Fiyat** kutusuna sadece rakamı yazın: `150` ya da `149,90`. "TL" yazmanıza gerek yok.
-8. **Sitede göster** kutusunun işaretli olduğundan emin olun.
-9. **Ekle** düğmesine dokunun.
+8. **Sitede göster** anahtarının açık (renkli) olduğundan emin olun.
+9. Ekranın altındaki **Ekle** düğmesine dokunun.
 
 ![Ürün düzenleme ekranı](images/admin-duzenle.png)
 
@@ -60,66 +62,75 @@ Girişten sonra ana sayfayı görürsünüz. Buradaki kutular sitenizin bölüml
 Bir ürün bitti ya da mevsimi geçti mi? Silmenize gerek yok, **gizleyin**. Sonra tek dokunuşla geri açarsınız.
 
 1. İlgili bölüme girin (örneğin **Menü**).
-2. Ürünün altındaki **Gizle** düğmesine dokunun.
-3. Ürünün yanında **Gizli** yazar ve sitede görünmez.
-4. Tekrar göstermek için **Göster** düğmesine dokunun.
+2. Ürünün sağındaki **anahtara** dokunun. Anahtar kapanır (gri olur), ürünün yanında **Gizli** yazar ve sitede görünmez.
+3. Tekrar göstermek için anahtara yeniden dokunun; **Sitede** yazar.
 
 ![Menü listesi](images/admin-menu.png)
 
 ## 6. Fiyat değiştirin
 
 1. İlgili bölüme girin.
-2. Ürünün altındaki **Düzenle** düğmesine dokunun.
+2. Ürünün adına ya da sağındaki **Düzenle** yazısına dokunun.
 3. **Fiyat** kutusundaki rakamı silip yenisini yazın.
-4. **Kaydet** düğmesine dokunun.
+4. Ekranın altındaki **Kaydet** düğmesine dokunun.
 
 Fiyatı olmayan bir şey (örneğin "Günün çorbası sorunuz") için fiyat kutusunu boş bırakın; sitede fiyat yerine hiçbir şey görünmez.
 
 ## 7. Sırayı değiştirin
 
-Listede her ürünün yanında **↑** ve **↓** düğmeleri vardır. Bir ürünü yukarı taşımak için **↑**, aşağı taşımak için **↓** düğmesine dokunun. Sitede de aynı sırayla görünür. En çok satan ürünlerinizi en üste koymanızı öneririz.
+Listede her ürünün solunda altı noktalı bir **tutamaç** (⋮⋮) vardır. Parmağınızı tutamacın üstüne koyun, yarım saniye bekleyin ve ürünü yukarı ya da aşağı sürükleyip bırakın. Ekranın üstünde "Sıralama kaydedildi" yazar; sitede de aynı sırayla görünür. En çok satan ürünlerinizi en üste koymanızı öneririz.
+
+Klavyeyle kullanıyorsanız: tutamaca gelin, boşluk tuşuna basın, ok tuşlarıyla taşıyın, yeniden boşluk tuşuyla bırakın.
 
 ## 8. Kampanya ekleyin ve bitirin
 
 1. Ana sayfada **Kampanyalar** kutusuna dokunun.
-2. **+ Yeni ekle** düğmesine dokunun.
-3. **Başlık** kutusuna kampanyayı kısa ve net yazın (örneğin "Hafta içi öğle menüsü 299 TL").
+2. **Yeni ekle** düğmesine dokunun.
+3. **Başlık** kutusuna kampanyayı kısa ve net yazın (örneğin "Hafta içi öğle menüsü 449 TL").
 4. Ayrıntıyı **Açıklama** kutusuna yazın (saatler, koşullar).
 5. **Ekle** düğmesine dokunun.
 
-Kampanya bittiğinde silmek yerine **Gizle** düğmesine dokunun. Gelecek yıl aynı kampanyayı tek dokunuşla geri açabilirsiniz.
+Kampanya bittiğinde silmek yerine anahtarı kapatıp **gizleyin**. Gelecek yıl aynı kampanyayı tek dokunuşla geri açabilirsiniz.
 
-## 9. Gelen mesajları okuyun
+## 9. Bir kaydı silin
+
+1. Kaydı açın (adına dokunun).
+2. Formun altındaki **Bu kaydı sil** yazısına dokunun.
+3. Açılan pencerede uyarıyı okuyun ve **Evet, sil** düğmesine dokunun. Vazgeçtiyseniz **Vazgeç**.
+
+Silinen kayıt geri gelmez. Emin değilseniz silmek yerine gizleyin.
+
+## 10. Gelen mesajları okuyun
 
 Sitenizdeki formu dolduran müşterilerin mesajları buraya gelir. Sitenizi kuran kişi ayarladıysa her yeni mesaj e-postanıza ya da Telegram'a da bildirim olarak düşer.
 
-1. Ana sayfada **Mesajlar** kutusuna dokunun.
-2. Yeni mesajların yanında sarı **Yeni** etiketi vardır.
-3. Müşteriyi hemen aramak için **Ara**, WhatsApp'tan yazmak için **WhatsApp** düğmesine dokunun.
+1. Alt menüden **Mesajlar**'a dokunun.
+2. Yeni mesajların yanında **Yeni** etiketi ve solunda renkli bir şerit vardır.
+3. Müşteriyi hemen aramak için **Ara**, WhatsApp'tan yazmak için **WhatsApp**, e-posta bıraktıysa **E-posta** düğmesine dokunun.
 4. Mesajla ilgilendikten sonra **Okundu** düğmesine dokunun.
-5. Artık gerekmeyen mesajları **Sil** düğmesiyle silebilirsiniz.
+5. Artık gerekmeyen mesajları **Sil** ile silebilirsiniz; panel önce onay ister.
 
 ![Mesajlar](images/admin-mesajlar.png)
 
 **Önemli (KVKK):** Mesajlar müşterilerinizin kişisel bilgilerini içerir. Bu bilgileri sadece müşteriye dönüş yapmak için kullanın, başkalarıyla paylaşmayın ve işiniz bittiğinde silin.
 
-## 10. Telefon, adres ve çalışma saatlerini değiştirin
+## 11. Telefon, adres ve çalışma saatlerini değiştirin
 
-1. Ana sayfada **İşletme bilgileri** kutusuna dokunun.
+1. Alt menüden **Bilgiler**'e dokunun.
 2. Değiştirmek istediğiniz kutuya dokunup yeni bilgiyi yazın: **Telefon**, **WhatsApp numarası**, **Mesajların geleceği e-posta**, **Adres**.
-3. **Çalışma saatleri** bölümünde her gün için açılış ve kapanış saatini seçin. O gün kapalıysanız **Kapalı** kutusunu işaretleyin.
+3. **Çalışma saatleri** bölümünde her gün için açılış ve kapanış saatini seçin. O gün kapalıysanız günün yanındaki anahtarı kapatın; **Kapalı** yazar.
 4. Bayram ya da tatil gibi geçici durumlar için **Not** kutusuna yazın (örneğin "Bayramın ilk günü kapalıyız").
 5. Ekranın altındaki **Kaydet** düğmesine dokunun.
 
 ![İşletme bilgileri](images/admin-bilgiler.png)
 
-## 11. Şifrenizi değiştirin
+## 12. Şifrenizi değiştirin
 
 1. Ana sayfada **Şifremi değiştir** kutusuna dokunun.
 2. Şu anki şifrenizi ve yeni şifrenizi yazın.
 3. **Şifremi kaydet** düğmesine dokunun.
 
-## 12. Şifrenizi unuttuysanız
+## 13. Şifrenizi unuttuysanız
 
 Güvenlik nedeniyle panelde "şifremi unuttum" bağlantısı yoktur. Şifrenizi unuttuysanız:
 
@@ -133,8 +144,8 @@ Geçici şifre verildiğinde açık olan bütün oturumlarınız kapanır, yani 
 
 - **Ana ekrana ekleyin:** Panel adresini telefonunuzun tarayıcısında açın. iPhone'da paylaş düğmesi → **Ana Ekrana Ekle**; Android'de menü (⋮) → **Ana ekrana ekle**. Panel artık bir uygulama gibi açılır.
 - **Değişiklik sitede görünmüyorsa:** Sitenizi açtığınız sekmeyi yenileyin. Hâlâ görünmüyorsa ürünün **Gizli** olmadığından emin olun.
-- **Yanlışlıkla sildiyseniz:** Silinen kayıtlar geri getirilemez; bu yüzden geçici durumlar için **Gizle** düğmesini kullanın.
-- **Hata mesajı alırsanız:** Ekranın altında kırmızı bir uyarı çıkar ve ne yapmanız gerektiğini yazar. İnternet bağlantınızı kontrol edip tekrar deneyin.
+- **Hata mesajı alırsanız:** Ekranın üstünde kırmızı bir uyarı çıkar ve ne yapmanız gerektiğini yazar; hatalı kutunun altında da kırmızı bir açıklama görünür. İnternet bağlantınızı kontrol edip tekrar deneyin.
+- **Bir şey yüklenmezse:** Ekranda **Tekrar dene** düğmesi çıkar; ona dokunun.
 
 ## Sık sorulanlar
 

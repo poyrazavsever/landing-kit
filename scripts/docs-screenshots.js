@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * Captures the admin panel screenshots used in README and docs/admin-rehberi.md.
- * Requires a running server with demo data (npm run seed:demo -- --password demo12345).
+ * Captures the screenshots used in README and docs/admin-rehberi.md.
+ * Requires a running server with demo data (npm run seed:demo -- --reset --password demo12345).
  *
  *   node scripts/docs-screenshots.js --url http://localhost:3000 --password demo12345
  */
@@ -20,77 +20,74 @@ const { values: opts } = parseArgs({
   },
 });
 
+const PHONE = {
+  viewport: { width: 390, height: 844 },
+  deviceScaleFactor: 2,
+  isMobile: true,
+  hasTouch: true,
+  locale: 'tr-TR',
+};
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 (async () => {
   fs.mkdirSync(opts.out, { recursive: true });
   const browser = await launchBrowser();
-  const phone = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    deviceScaleFactor: 2,
-    isMobile: true,
-    hasTouch: true,
-    locale: 'tr-TR',
-  });
-  const page = await phone.newPage();
-  const shot = async (name) => {
-    await wait(400);
+  const save = async (page, name) => {
+    await wait(500);
     await page.screenshot({ path: path.join(opts.out, `${name}.png`) });
     console.log(`  ${name}.png`);
   };
 
-  await page.goto(`${opts.url}/admin/cinaralti-lokanta`);
+  const phone = await browser.newContext(PHONE);
+  const page = await phone.newPage();
+  await page.goto(`${opts.url}/admin/en-iyi-etler`);
   await page.waitForSelector('input[name="email"]');
-  await shot('admin-giris');
+  await save(page, 'admin-giris');
 
-  await page.fill('input[name="email"]', 'lokanta@example.com');
+  await page.fill('input[name="email"]', 'eniyietler@example.com');
   await page.fill('input[name="password"]', opts.password);
   await page.click('button[type="submit"]');
-  await page.waitForSelector('.tiles');
-  await shot('admin-ana-sayfa');
+  await page.waitForSelector('a[href="#/c/menu"]');
+  await save(page, 'admin-ana-sayfa');
 
   await page.click('a[href="#/c/menu"]');
-  await page.waitForSelector('.items');
-  await shot('admin-menu');
+  await page.waitForSelector('[data-testid="item-row"]');
+  await save(page, 'admin-menu');
 
-  await page.click('.item-actions a.btn');
+  await page.click('[data-testid="item-title"]');
   await page.waitForSelector('input[name="title"]');
-  await shot('admin-duzenle');
+  await save(page, 'admin-duzenle');
 
-  await page.goto(`${opts.url}/admin/cinaralti-lokanta#/mesajlar`);
-  await page.waitForSelector('.msg');
-  await shot('admin-mesajlar');
+  await page.goto(`${opts.url}/admin/en-iyi-etler#/mesajlar`);
+  await page.waitForSelector('[data-testid="message"]');
+  await save(page, 'admin-mesajlar');
 
-  await page.goto(`${opts.url}/admin/cinaralti-lokanta#/bilgiler`);
-  await page.waitForSelector('.hours');
-  await shot('admin-bilgiler');
+  await page.goto(`${opts.url}/admin/en-iyi-etler#/bilgiler`);
+  await page.waitForSelector('[data-testid="hours-row"]');
+  await save(page, 'admin-bilgiler');
 
   // Same panel, another customer's brand.
-  const fresh = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    deviceScaleFactor: 2,
-    isMobile: true,
-    locale: 'tr-TR',
-  });
-  const other = await fresh.newPage();
+  const other = await (await browser.newContext(PHONE)).newPage();
   await other.goto(`${opts.url}/admin/yildiz-kuruyemis`);
   await other.waitForSelector('input[name="email"]');
-  await wait(400);
-  await other.screenshot({ path: path.join(opts.out, 'admin-giris-baska-marka.png') });
-  console.log('  admin-giris-baska-marka.png');
+  await save(other, 'admin-giris-baska-marka');
 
-  // Example landing page on desktop.
-  const desktop = await browser.newContext({
-    viewport: { width: 1280, height: 860 },
+  // The En İyi Etler example page: desktop hero, menu section and a phone view.
+  const desktopContext = await browser.newContext({
+    viewport: { width: 1280, height: 800 },
     locale: 'tr-TR',
   });
-  const landing = await desktop.newPage();
-  await landing.goto(`${opts.url}/examples/restoran/`);
-  await landing.waitForSelector('html.lk-ready');
-  await landing.evaluate(() => document.querySelector('#menu').scrollIntoView());
-  await wait(400);
-  await landing.screenshot({ path: path.join(opts.out, 'ornek-restoran.png') });
-  console.log('  ornek-restoran.png');
+  const desktop = await desktopContext.newPage();
+  await desktop.goto(`${opts.url}/examples/en-iyi-etler/`);
+  await desktop.waitForSelector('html.lk-ready');
+  await save(desktop, 'ornek-sayfa');
+  await desktop.evaluate(() => document.querySelector('#menu').scrollIntoView());
+  await save(desktop, 'ornek-sayfa-menu');
+
+  const mobile = await (await browser.newContext(PHONE)).newPage();
+  await mobile.goto(`${opts.url}/examples/en-iyi-etler/`);
+  await mobile.waitForSelector('html.lk-ready');
+  await save(mobile, 'ornek-sayfa-mobil');
 
   await browser.close();
 })().catch((err) => {
