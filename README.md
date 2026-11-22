@@ -125,7 +125,7 @@ Bir Ubuntu/Debian VPS, bir alan adı (ör. `api.ornek.com`) ve sunucuda Docker g
 7. **Kontrol:** `curl https://api.ornek.com/healthz` → `{"ok":true}`
 
 > Konteyner içinde komut çalıştırırken `-u node` kullanın; böylece veritabanı dosyaları doğru kullanıcıya ait olur. Veriler sunucuda `./data/` klasöründedir.
-> Daha küçük imaj (PDF rehber olmadan): `docker compose build --build-arg WITH_PDF=false`.
+> Daha küçük imaj (PDF rehber olmadan): `docker compose build --build-arg WITH_PDF=false`. Bizim denememizde imaj Chromium ile yaklaşık 1,3 GB, Chromium olmadan yaklaşık 400 MB oldu.
 
 #### Docker'sız (Node + systemd + Caddy)
 
@@ -383,6 +383,8 @@ Open <http://localhost:3000/examples/> and the panel at <http://localhost:3000/a
 4. `docker compose up -d`, then check that `docker compose ps` shows `healthy`.
 5. Install Caddy, copy `deploy/Caddyfile` (with your domain) to `/etc/caddy/Caddyfile` and reload. HTTPS is automatic.
 6. Create your freelancer account: `docker compose exec -u node landing-kit npm run admin:create -- --email you@example.com`.
+
+For a smaller image without the PDF generator (about 400 MB instead of about 1.3 GB in our build): `docker compose build --build-arg WITH_PDF=false`.
 
 Without Docker: `npm ci --omit=dev`, `npx playwright install --with-deps --only-shell chromium` (PDF only), `deploy/landing-kit.service` for systemd, then Caddy as above. `PDF_BROWSER_PATH` can point to an installed Chrome/Edge instead.
 
