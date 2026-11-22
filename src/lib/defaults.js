@@ -22,9 +22,9 @@ function collectionLabel(key) {
 
 /** landing-kit's own brand, used when a site has no theme. See docs/style-guide.md. */
 const BRAND = {
-  primary: '#1F4FFF',
-  secondary: '#FFB020',
-  font: 'Inter',
+  primary: '#2F54EB',
+  secondary: '#C6F432',
+  font: 'Bricolage Grotesque',
   logo: '/admin/landing-kit-mark.svg',
 };
 
