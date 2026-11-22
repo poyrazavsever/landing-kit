@@ -11,3 +11,4 @@ uploads
 docs/samples
 coverage
 *.log
+public/admin

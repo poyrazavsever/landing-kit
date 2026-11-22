@@ -10,6 +10,14 @@ RUN apt-get update \
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
+# Builds the React admin panel (admin/ -> public/admin) with the dev dependencies.
+FROM node:22-bookworm-slim AS admin
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts && npm cache clean --force
+COPY admin ./admin
+RUN npm run build:admin
+
 FROM node:22-bookworm-slim
 # Set WITH_PDF=false for a smaller image without the PDF guide generator.
 ARG WITH_PDF=true
@@ -27,6 +35,7 @@ RUN if [ "$WITH_PDF" = "true" ]; then \
     fi
 
 COPY . .
+COPY --from=admin /app/public/admin ./public/admin
 RUN chmod +x deploy/docker-entrypoint.sh && mkdir -p /data && chown -R node:node /data
 
 EXPOSE 3000

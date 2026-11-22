@@ -23,10 +23,24 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run format:check
-      - name: Snippet build is up to date
+      - name: Build snippet and admin panel (snippet build must be committed)
         shell: bash
         run: npm run build && git diff --exit-code public/landing-kit.min.js
       - run: npm test
+
+  e2e:
+    name: End-to-end (Chromium, mobile viewport)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps --only-shell chromium
+      - run: npm run test:e2e
 
   docker:
     name: Docker build
@@ -40,7 +54,9 @@ jobs:
             -e SESSION_SECRET=ci-secret-that-is-at-least-32-characters-long \
             -e PUBLIC_URL=http://localhost:3000 landing-kit:ci
           for i in $(seq 1 30); do
-            if curl -fsS http://localhost:3000/healthz; then exit 0; fi
+            if curl -fsS http://localhost:3000/healthz; then
+              curl -fsS http://localhost:3000/admin/ | grep -q '<div id="root">' && exit 0
+            fi
             sleep 1
           done
           docker logs lk
