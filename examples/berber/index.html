@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Berber Ahmet · Saç ve sakal</title>
+    <meta name="description" content="Berber Ahmet: saç kesimi, sakal tıraşı, çocuk tıraşı. (landing-kit örnek sayfası, hayali işletme)" />
+    <style>
+      :root { --gold: #d4a373; --bg: #0b0f17; --card: #151b26; --ink: #f3f4f6; --muted: #9ca3af; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+      a { color: var(--gold); }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+      header { padding: 80px 0 64px; text-align: center; border-bottom: 1px solid #222a38; }
+      header h1 { font-size: clamp(40px, 8vw, 72px); letter-spacing: 2px; text-transform: uppercase; margin: 0; }
+      header p { color: var(--muted); font-size: 19px; margin: 8px 0 28px; }
+      .btn { display: inline-block; padding: 14px 26px; background: var(--gold); color: #111; font-weight: 800; text-decoration: none; border-radius: 6px; margin: 4px; }
+      .btn.ghost { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+      section { padding: 56px 0; }
+      h2 { text-transform: uppercase; letter-spacing: 1px; font-size: 26px; margin: 0 0 24px; }
+      .services { display: grid; gap: 14px; }
+      .service { display: grid; grid-template-columns: 88px 1fr auto; gap: 16px; align-items: center; background: var(--card); padding: 14px; border-radius: 10px; }
+      .service img { width: 88px; height: 66px; object-fit: cover; border-radius: 8px; background: #222; }
+      .service h3 { margin: 0; font-size: 19px; }
+      .service p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+      .service .price { font-weight: 800; color: var(--gold); font-size: 20px; }
+      .two { display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .hours { list-style: none; padding: 0; margin: 0; }
+      .hours li { padding: 8px 0; border-bottom: 1px solid #222a38; }
+      form { display: grid; gap: 14px; }
+      label { display: grid; gap: 6px; font-weight: 600; }
+      input, textarea { font: inherit; padding: 12px 14px; border-radius: 8px; border: 1px solid #2d3748; background: #0f1520; color: var(--ink); }
+      input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #f87171; }
+      .check { display: flex; gap: 10px; font-weight: 400; color: var(--muted); }
+      .check input { width: 22px; height: 22px; }
+      button { font: inherit; font-weight: 800; padding: 14px; border: 0; border-radius: 8px; background: var(--gold); color: #111; cursor: pointer; }
+      .lk-status { margin: 0; padding: 12px; border-radius: 8px; }
+      .lk-success { background: #14532d; }
+      .lk-error { background: #7f1d1d; }
+      .campaign { border: 1px dashed var(--gold); padding: 16px; border-radius: 10px; margin-bottom: 10px; }
+      footer { padding: 32px 0; color: var(--muted); font-size: 14px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <h1 data-lk="name">Berber Ahmet</h1>
+        <p>Klasik kesim, sıcak havlu, özenli sakal.</p>
+        <a class="btn" data-lk-href="whatsapp" href="#randevu" target="_blank" rel="noopener">WhatsApp ile randevu</a>
+        <a class="btn ghost" data-lk-href="phone" href="tel:05550000000">Ara</a>
+      </div>
+    </header>
+
+    <section>
+      <div class="wrap">
+        <h2>Hizmetler ve fiyatlar</h2>
+        <div class="services" data-lk-list="services">
+          <div class="service"><div></div><div><h3>Saç kesimi</h3><p>Güncel fiyat için arayın.</p></div><span></span></div>
+          <template>
+            <div class="service">
+              <img data-lk-field="image" alt="" />
+              <div>
+                <h3 data-lk-field="title"></h3>
+                <p data-lk-field="description"></p>
+              </div>
+              <span class="price" data-lk-field="price"></span>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div data-lk-list="campaigns">
+          <template>
+            <div class="campaign"><strong data-lk-field="title"></strong><br /><span data-lk-field="description"></span></div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section id="randevu">
+      <div class="wrap two">
+        <div>
+          <h2>Saatler</h2>
+          <ul class="hours" data-lk="hours"><li>Pazartesi–Cumartesi: 09:00–20:00</li></ul>
+          <p><span data-lk="address">Adres bilgisi</span><br /><a data-lk-href="maps" href="#" target="_blank" rel="noopener">Haritada aç</a></p>
+        </div>
+        <form data-lk-form="contact" data-lk-success="Talebiniz alındı! Randevu saatini onaylamak için sizi arayacağız." novalidate>
+          <h2>Randevu iste</h2>
+          <label>Adınız <input name="name" autocomplete="name" required /></label>
+          <label>Telefon <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required /></label>
+          <label>Hangi gün ve saat? <textarea name="message" rows="3" required placeholder="Örn: Perşembe 18:00, saç + sakal"></textarea></label>
+          <label class="check"><input type="checkbox" name="kvkk" value="1" required /> <span>Aydınlatma metnini okudum, bilgilerimin randevu için kullanılmasını onaylıyorum.</span></label>
+          <button type="submit">Randevu iste</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>landing-kit örnek sayfası · hayali işletme</footer>
+    <script src="/landing-kit.js" data-site="berber-ahmet" defer></script>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Çınaraltı Lokantası · Ev yemekleri ve ızgara</title>
+    <meta name="description" content="Çınaraltı Lokantası: günlük ev yemekleri, ızgara ve tatlılar. (landing-kit örnek sayfası, hayali işletme)" />
+    <style>
+      :root { --c1: #b45309; --c2: #7c2d12; --bg: #fffbf5; --ink: #1c1917; --muted: #57534e; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+      a { color: var(--c2); }
+      .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+      header { background: var(--c2); color: #fff; padding: 64px 0 56px; }
+      header h1 { font-size: clamp(34px, 6vw, 56px); margin: 0 0 8px; line-height: 1.1; }
+      header p { font-size: 20px; margin: 0 0 24px; opacity: .92; }
+      .btn { display: inline-block; padding: 14px 22px; border-radius: 999px; background: #fff; color: var(--c2); font-weight: 700; text-decoration: none; font-family: system-ui, sans-serif; margin: 0 8px 8px 0; }
+      .btn.alt { background: transparent; color: #fff; border: 2px solid #fff; }
+      section { padding: 56px 0; }
+      h2 { font-size: 32px; margin: 0 0 24px; }
+      .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+      .dish { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,.07); }
+      .dish img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #f5e6d3; }
+      .dish div { padding: 14px 16px 18px; }
+      .dish h3 { margin: 0; font-size: 20px; }
+      .dish p { margin: 4px 0 0; color: var(--muted); font-family: system-ui, sans-serif; font-size: 15px; }
+      .price { font-family: system-ui, sans-serif; font-weight: 800; color: var(--c1); font-size: 18px; margin-top: 8px; display: block; }
+      .campaigns { background: #fef3c7; }
+      .campaign { background: #fff; border-left: 6px solid var(--c1); padding: 16px 20px; border-radius: 12px; margin-bottom: 12px; font-family: system-ui, sans-serif; }
+      .campaign strong { display: block; font-size: 18px; }
+      .info { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); font-family: system-ui, sans-serif; }
+      .info ul { padding-left: 18px; margin: 0; }
+      form { display: grid; gap: 14px; background: #fff; padding: 24px; border-radius: 18px; box-shadow: 0 6px 24px rgba(0,0,0,.07); font-family: system-ui, sans-serif; }
+      label { font-weight: 600; display: grid; gap: 6px; }
+      input, textarea { font: inherit; padding: 12px 14px; border: 2px solid #e7e5e4; border-radius: 12px; }
+      input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #b91c1c; }
+      .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+      .check input { width: 22px; height: 22px; margin-top: 2px; }
+      button { font: inherit; font-weight: 700; padding: 14px; border: 0; border-radius: 12px; background: var(--c2); color: #fff; cursor: pointer; }
+      .lk-status { margin: 0; padding: 12px 14px; border-radius: 10px; font-weight: 600; }
+      .lk-success { background: #dcfce7; color: #14532d; }
+      .lk-error { background: #fee2e2; color: #7f1d1d; }
+      .lk-sending { background: #f5f5f4; }
+      footer { padding: 32px 0; color: var(--muted); font-family: system-ui, sans-serif; font-size: 14px; }
+      .kvkk { font-size: 14px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <h1 data-lk="name">Çınaraltı Lokantası</h1>
+        <p>Her gün taze ev yemekleri, odun ateşinde ızgara.</p>
+        <a class="btn" href="tel:05550000000" data-lk-href="phone">Hemen ara</a>
+        <a class="btn alt" href="#iletisim" data-lk-href="whatsapp" target="_blank" rel="noopener">WhatsApp'tan yaz</a>
+      </div>
+    </header>
+
+    <section id="menu">
+      <div class="wrap">
+        <h2>Menü</h2>
+        <div class="grid" data-lk-list="menu" data-lk-empty="Menü yakında burada.">
+          <!-- Statik yedek içerik: API'ye ulaşılamazsa bu görünür -->
+          <article class="dish">
+            <div><h3>Günün yemekleri</h3><p>Menümüz için bizi arayın.</p></div>
+          </article>
+          <template>
+            <article class="dish">
+              <img data-lk-field="image" alt="" />
+              <div>
+                <h3 data-lk-field="title"></h3>
+                <p data-lk-field="description"></p>
+                <span class="price" data-lk-field="price"></span>
+              </div>
+            </article>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section class="campaigns">
+      <div class="wrap">
+        <h2>Kampanyalar</h2>
+        <div data-lk-list="campaigns" data-lk-empty="Şu an aktif kampanya yok.">
+          <template>
+            <div class="campaign">
+              <strong data-lk-field="title"></strong>
+              <span data-lk-field="description"></span>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section id="iletisim">
+      <div class="wrap info">
+        <div>
+          <h2>Bize ulaşın</h2>
+          <p><strong>Telefon:</strong> <a data-lk="phone" data-lk-href="phone" href="tel:05550000000">0555 000 00 00</a></p>
+          <p><strong>Adres:</strong> <a data-lk="address" data-lk-href="maps" href="#" target="_blank" rel="noopener">Örnek Mah. Çınar Sok. No:1</a></p>
+          <h3>Çalışma saatleri</h3>
+          <ul data-lk="hours"><li>Her gün 11:00–22:00</li></ul>
+          <p data-lk="hoursNote"></p>
+        </div>
+
+        <form data-lk-form="contact" data-lk-success="Teşekkürler! Rezervasyon talebinizi aldık, sizi arayacağız." novalidate>
+          <h3 style="margin:0">Rezervasyon / mesaj</h3>
+          <label>Adınız <input name="name" autocomplete="name" required /></label>
+          <label>Telefon <input name="phone" type="tel" autocomplete="tel" inputmode="tel" /></label>
+          <label>E-posta (isteğe bağlı) <input name="email" type="email" autocomplete="email" /></label>
+          <label>Mesajınız <textarea name="message" rows="4" required placeholder="Örn: Cumartesi 20:00 için 4 kişilik masa"></textarea></label>
+          <label class="check"><input type="checkbox" name="kvkk" value="1" required /> <span><a href="#kvkk">Aydınlatma metnini</a> okudum, bilgilerimin bana dönüş yapılması için işlenmesini onaylıyorum.</span></label>
+          <button type="submit">Gönder</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p id="kvkk" class="kvkk">KVKK: Formdaki bilgileriniz yalnızca size dönüş yapmak için kullanılır. (Örnek metin; gerçek işletmeler için docs/kvkk.md şablonuna bakın.)</p>
+        <p>Bu sayfa <a href="https://github.com/poyrazavsever/landing-kit">landing-kit</a> örneğidir. İşletme hayalidir.</p>
+      </div>
+    </footer>
+
+    <!-- landing-kit: kendi sunucunuzda src'yi tam adresle yazın, ör. https://api.alanadiniz.com/landing-kit.js -->
+    <script src="/landing-kit.js" data-site="cinaralti-lokanta" defer></script>
+  </body>
+</html>

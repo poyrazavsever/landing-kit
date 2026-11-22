@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yıldız Kuruyemiş · Taze kavrulmuş</title>
+    <meta name="description" content="Yıldız Kuruyemiş: günlük kavrulmuş kuruyemiş, lokum ve kahve. (landing-kit örnek sayfası, hayali işletme)" />
+    <style>
+      :root { --green: #166534; --leaf: #dcfce7; --ink: #052e16; --muted: #3f6212; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; }
+      a { color: var(--green); }
+      .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+      .bar { background: var(--green); color: #fff; text-align: center; padding: 10px; font-weight: 700; }
+      .bar:empty { display: none; }
+      header { padding: 56px 0; background: var(--leaf); }
+      header h1 { font-size: clamp(34px, 6vw, 54px); margin: 0; }
+      header p { font-size: 19px; color: var(--muted); }
+      .cta { display: inline-block; background: var(--green); color: #fff; padding: 14px 22px; border-radius: 14px; font-weight: 700; text-decoration: none; }
+      section { padding: 48px 0; }
+      .products { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .product { border: 2px solid var(--leaf); border-radius: 16px; overflow: hidden; }
+      .product img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+      .product div { padding: 12px 14px; }
+      .product h3 { margin: 0; font-size: 18px; }
+      .product p { margin: 2px 0 6px; color: var(--muted); font-size: 14px; }
+      .product b { font-size: 18px; }
+      .contact { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      form { display: grid; gap: 12px; background: var(--leaf); padding: 22px; border-radius: 16px; }
+      label { display: grid; gap: 4px; font-weight: 700; }
+      input, textarea { font: inherit; padding: 12px; border-radius: 10px; border: 2px solid #bbf7d0; }
+      .check { display: flex; gap: 8px; font-weight: 400; }
+      button { font: inherit; font-weight: 700; padding: 14px; border: 0; border-radius: 12px; background: var(--green); color: #fff; cursor: pointer; }
+      .lk-status { margin: 0; font-weight: 700; }
+      .lk-error { color: #991b1b; }
+      footer { padding: 24px 0; font-size: 14px; color: var(--muted); text-align: center; }
+    </style>
+  </head>
+  <body>
+    <!-- İlk aktif kampanya üst şeritte görünür -->
+    <div data-lk-list="campaigns" data-lk-limit="1">
+      <template><div class="bar"><span data-lk-field="title"></span></div></template>
+    </div>
+
+    <header>
+      <div class="wrap">
+        <h1 data-lk="name">Yıldız Kuruyemiş</h1>
+        <p>Her sabah kavrulan fındık, fıstık ve taze lokum. Telefonla sipariş verin, hazırlayalım.</p>
+        <a class="cta" data-lk-href="whatsapp" href="#siparis" target="_blank" rel="noopener">WhatsApp'tan sipariş</a>
+      </div>
+    </header>
+
+    <section>
+      <div class="wrap">
+        <h2>Ürünlerimiz</h2>
+        <div class="products" data-lk-list="products">
+          <div class="product"><div><h3>Kavrulmuş fındık</h3><p>Fiyat için arayın.</p></div></div>
+          <template>
+            <div class="product">
+              <img data-lk-field="image" alt="" />
+              <div>
+                <h3 data-lk-field="title"></h3>
+                <p data-lk-field="description"></p>
+                <b data-lk-field="price"></b>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section id="siparis">
+      <div class="wrap contact">
+        <div>
+          <h2>Dükkân</h2>
+          <p data-lk="address">Adres</p>
+          <p>Telefon: <a data-lk="phone" data-lk-href="phone" href="tel:05550000000">0555 000 00 00</a></p>
+          <p data-lk="hours">Her gün 08:00–21:00</p>
+        </div>
+        <form data-lk-form="contact" data-lk-success="Siparişiniz bize ulaştı, birazdan arıyoruz." novalidate>
+          <h2 style="margin:0">Sipariş / soru</h2>
+          <label>Adınız <input name="name" required autocomplete="name" /></label>
+          <label>Telefon <input name="phone" type="tel" inputmode="tel" autocomplete="tel" /></label>
+          <label>Ne istersiniz? <textarea name="message" rows="3" required placeholder="Örn: 500 gr fındık, 250 gr lokum"></textarea></label>
+          <label class="check"><input type="checkbox" name="kvkk" value="1" required /> <span>Aydınlatma metnini okudum ve onaylıyorum.</span></label>
+          <button type="submit">Gönder</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>landing-kit örnek sayfası · hayali işletme</footer>
+    <script src="/landing-kit.js" data-site="yildiz-kuruyemis" defer></script>
+  </body>
+</html>
